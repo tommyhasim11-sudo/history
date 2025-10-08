@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Elegan - Mariska & Tommy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Undangan Pernikahan • Mariska & Tommy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --cream: #fdf9f3;
-            --dark: #1e1e1e;
+            --cream: #fdf8f0;
             --gold: #d4af37;
-            --gold-light: #f0e6c2;
-            --shadow: rgba(0, 0, 0, 0.08);
+            --gold-light: #f5e9c9;
+            --brown: #3e2723;
+            --text: #2c1e18;
         }
 
         * {
@@ -23,36 +23,78 @@
 
         body {
             font-family: 'Lora', serif;
-            color: var(--dark);
+            color: var(--text);
             background-color: var(--cream);
-            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d4af37' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
             line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Partikel Emas */
+        .gold-dust {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 15s infinite ease-in;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100px) translateX(calc(20vw - 40vw));
+                opacity: 0;
+            }
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         /* Opening Envelope */
         .opening-section {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: var(--cream);
+            text-align: center;
+            padding: 40px 20px;
             position: relative;
         }
 
         .envelope {
-            width: 280px;
-            height: 180px;
+            width: 300px;
+            height: 200px;
             background: white;
-            border: 1px solid #e0e0e0;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 8px 30px var(--shadow);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            border-radius: 4px;
+            margin-bottom: 40px;
             transition: transform 0.4s ease;
         }
 
@@ -65,17 +107,16 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 90px;
+            height: 100px;
             background: white;
-            border-bottom: 1px solid #e0e0e0;
-            clip-path: polygon(0 0, 50% 60%, 100% 0);
+            clip-path: polygon(0 0, 50% 65%, 100% 0);
             z-index: 2;
-            transition: transform 0.6s ease;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform-origin: top;
         }
 
         .envelope.open .envelope-flap {
             transform: rotateX(180deg);
-            transform-origin: top;
         }
 
         .envelope-content {
@@ -88,9 +129,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 25px;
             opacity: 0;
-            transition: opacity 0.5s ease 0.3s;
+            transition: opacity 0.6s ease 0.4s;
         }
 
         .envelope.open .envelope-content {
@@ -99,68 +140,77 @@
 
         .open-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: var(--gold);
             letter-spacing: 1px;
         }
 
         .opening-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.2rem;
-            font-weight: 600;
-            margin-top: 20px;
-            color: var(--dark);
-            display: none;
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.2rem;
+            color: var(--brown);
+            margin: 25px 0 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.6s;
+        }
+
+        .envelope.open ~ .opening-title {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .opening-subtitle {
-            font-size: 1.1rem;
-            color: #555;
-            margin-top: 10px;
-            display: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.8s;
         }
 
-        .scroll-indicator {
+        .envelope.open ~ .opening-subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-hint {
             position: absolute;
             bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: float 3s ease-in-out infinite;
-            display: none;
             color: var(--gold);
             font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.5s ease 1s;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
+        .envelope.open ~ .scroll-hint {
+            opacity: 1;
         }
 
-        /* Section Styling */
+        /* Section Global */
+        section {
+            padding: 100px 0;
+        }
+
         .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.6rem;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.4rem;
             text-align: center;
-            margin: 70px 0 50px;
+            color: var(--brown);
+            margin-bottom: 60px;
             position: relative;
-            color: var(--dark);
         }
 
         .section-title:after {
             content: '';
             display: block;
-            width: 60px;
+            width: 80px;
             height: 2px;
             background: var(--gold);
             margin: 15px auto;
         }
 
-        /* Story Timeline - Vertical */
-        .story-section, .event-section, .rsvp-section {
-            padding: 80px 0;
-            background: var(--cream);
-        }
-
+        /* Timeline */
         .timeline {
             max-width: 700px;
             margin: 0 auto;
@@ -170,7 +220,7 @@
         .timeline:before {
             content: '';
             position: absolute;
-            left: 30px;
+            left: 40px;
             top: 0;
             bottom: 0;
             width: 2px;
@@ -179,23 +229,32 @@
 
         .timeline-item {
             position: relative;
-            padding-left: 70px;
-            margin-bottom: 40px;
+            padding-left: 90px;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .timeline-icon {
             position: absolute;
-            left: 20px;
+            left: 28px;
             top: 0;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             background: var(--gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
         .timeline-date {
@@ -206,109 +265,111 @@
 
         .timeline-content h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-            color: var(--dark);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--brown);
         }
 
-        /* Couple Cards */
+        /* Couple */
         .couple-section {
-            padding: 80px 0;
-            background: #faf7f0;
+            background: #fdf3e7;
         }
 
         .couple-container {
             display: flex;
             justify-content: center;
-            gap: 50px;
+            gap: 60px;
             flex-wrap: wrap;
         }
 
         .couple-card {
             max-width: 280px;
             text-align: center;
-            transition: transform 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease 0.2s;
         }
 
-        .couple-card:hover {
-            transform: translateY(-10px);
+        .couple-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .couple-img {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--gold-light);
+            border: 4px solid var(--gold-light);
             margin: 0 auto 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
         .couple-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.7rem;
-            margin-bottom: 8px;
-            color: var(--dark);
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: var(--brown);
+            margin-bottom: 10px;
         }
 
         .couple-parents {
             font-style: italic;
-            color: #666;
+            color: #5a4a42;
             margin-bottom: 15px;
         }
 
         .couple-quote {
             font-style: italic;
-            color: #555;
-            padding: 15px;
-            background: var(--cream);
+            padding: 18px;
+            background: white;
+            border-radius: 10px;
             border-left: 3px solid var(--gold);
             margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        /* Event Cards */
+        /* Events */
         .event-cards {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
             flex-wrap: wrap;
         }
 
         .event-card {
             background: white;
-            border-radius: 12px;
-            padding: 30px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 6px 20px var(--shadow);
-            transition: transform 0.3s ease;
+            border-radius: 14px;
+            padding: 35px;
+            max-width: 380px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease 0.3s;
         }
 
-        .event-card:hover {
-            transform: translateY(-5px);
+        .event-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .event-icon {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--gold);
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .event-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            color: var(--dark);
-        }
-
-        .event-date, .event-time {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--dark);
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.4rem;
+            color: var(--brown);
+            margin-bottom: 15px;
         }
 
         .event-date {
             font-weight: 600;
             color: var(--gold);
+            display: block;
+            margin-bottom: 8px;
         }
 
         .map-btn {
@@ -317,97 +378,110 @@
             color: var(--gold);
             text-decoration: none;
             font-weight: 500;
-            border-bottom: 1px solid var(--gold);
+            position: relative;
         }
 
-        .map-btn:hover {
-            color: var(--dark);
+        .map-btn:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .map-btn:hover:after {
+            width: 100%;
         }
 
         /* Countdown */
         .countdown-section {
-            padding: 80px 0;
-            background: var(--dark);
+            background: var(--brown);
             color: white;
             text-align: center;
         }
 
         .countdown-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.2rem;
+            margin-bottom: 50px;
         }
 
         .countdown-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
         }
 
         .countdown-item {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 20px 10px;
-            min-width: 90px;
-            border-radius: 8px;
+            background: rgba(255,255,255,0.08);
+            padding: 25px 15px;
+            min-width: 100px;
+            border-radius: 10px;
+            backdrop-filter: blur(4px);
         }
 
         .countdown-number {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .countdown-label {
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             font-size: 0.85rem;
         }
 
-        /* RSVP Form */
+        /* RSVP */
         .rsvp-form {
             max-width: 600px;
             margin: 0 auto;
             background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 6px 25px var(--shadow);
+            padding: 45px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .form-label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: var(--dark);
+            color: var(--text);
         }
 
         .form-input, .form-textarea {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+            padding: 14px 18px;
+            border: 1px solid #e0d5c8;
+            border-radius: 8px;
             font-family: 'Lora', serif;
+            background: #fdfbf7;
         }
 
         .form-textarea {
+            min-height: 120px;
             resize: vertical;
-            min-height: 100px;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             background: var(--gold);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-family: 'Lora', serif;
             font-weight: 600;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: background 0.3s;
         }
@@ -418,25 +492,23 @@
 
         /* Footer */
         .footer {
-            padding: 60px 0;
-            background: var(--cream);
+            padding: 70px 0 40px;
             text-align: center;
-            color: var(--dark);
-            font-style: italic;
+            background: var(--cream);
         }
 
         .footer-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             max-width: 700px;
-            margin: 0 auto 20px;
-            line-height: 1.6;
+            margin: 0 auto 25px;
+            line-height: 1.8;
+            color: var(--text);
         }
 
         .copyright {
-            margin-top: 20px;
+            color: #8b7d70;
             font-size: 0.9rem;
-            color: #777;
         }
 
         /* Music Player */
@@ -447,11 +519,11 @@
             background: white;
             border-radius: 30px;
             padding: 10px 18px;
-            box-shadow: 0 4px 15px var(--shadow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             gap: 12px;
-            z-index: 100;
+            z-index: 1000;
             border: 1px solid var(--gold-light);
         }
 
@@ -460,18 +532,18 @@
             border: none;
             color: var(--gold);
             font-size: 1.2rem;
-            cursor: pointer;
             width: 36px;
             height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
         }
 
         .music-title {
             font-size: 0.85rem;
-            color: var(--dark);
+            color: var(--text);
             max-width: 130px;
             white-space: nowrap;
             overflow: hidden;
@@ -480,39 +552,41 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .opening-title { font-size: 2.4rem; }
-            .section-title { font-size: 2rem; }
-            .timeline:before { left: 20px; }
-            .timeline-item { padding-left: 60px; }
-            .timeline-icon { left: 10px; width: 26px; height: 26px; }
-            .countdown-number { font-size: 2.2rem; }
-            .rsvp-form { padding: 30px 20px; }
+            .section-title { font-size: 2.6rem; }
+            .opening-title { font-size: 3.2rem; }
+            .timeline:before { left: 30px; }
+            .timeline-item { padding-left: 80px; }
+            .timeline-icon { left: 20px; width: 34px; height: 34px; }
+            .couple-container { gap: 30px; }
+            .event-card { padding: 25px; }
         }
 
         @media (max-width: 480px) {
-            .envelope { width: 240px; height: 150px; }
-            .envelope-flap { height: 75px; }
-            .opening-title { font-size: 2rem; }
-            .event-card { padding: 20px; }
-            .music-player { bottom: 15px; right: 15px; padding: 8px 14px; }
+            .envelope { width: 260px; height: 170px; }
+            .envelope-flap { height: 85px; }
+            .opening-title { font-size: 2.6rem; }
+            .section-title { font-size: 2.2rem; }
+            .countdown-number { font-size: 2.4rem; }
+            .rsvp-form { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
+    <!-- Partikel Emas -->
+    <div class="gold-dust" id="goldDust"></div>
+
     <!-- Opening -->
     <section class="opening-section" id="opening">
         <div class="envelope" id="envelope">
             <div class="envelope-flap"></div>
             <div class="envelope-content">
                 <p class="open-text">Buka Undangan</p>
-                <i class="fas fa-hand-point-up" style="color: var(--gold); margin-top: 10px;"></i>
+                <i class="fas fa-hand-point-up" style="color: var(--gold); margin-top: 12px;"></i>
             </div>
         </div>
-        <h1 class="opening-title" id="main-title">Mariska & Tommy</h1>
-        <p class="opening-subtitle" id="subtitle">20 Desember 2024 • Medan & Siantar</p>
-        <div class="scroll-indicator" id="scroll-indicator">
-            <i class="fas fa-chevron-down"></i>
-        </div>
+        <h1 class="opening-title">Mariska & Tommy</h1>
+        <p class="opening-subtitle">Jumat, 20 Desember 2024 • Medan & Siantar</p>
+        <div class="scroll-hint">Scroll untuk melihat cerita kami</div>
     </section>
 
     <!-- Story -->
@@ -594,7 +668,7 @@
                     <div class="event-icon"><i class="fas fa-ring"></i></div>
                     <h3 class="event-title">Akad Nikah</h3>
                     <span class="event-date">Jumat, 20 Desember 2024</span>
-                    <span class="event-time">Pukul 09.00 – 11.00 WIB</span>
+                    <p>Pukul 09.00 – 11.00 WIB</p>
                     <p class="event-location">Gereja HKBP Siantar<br>Jl. Sutomo No. 123, Siantar</p>
                     <a href="#" class="map-btn">Lihat Peta</a>
                 </div>
@@ -602,7 +676,7 @@
                     <div class="event-icon"><i class="fas fa-glass-cheers"></i></div>
                     <h3 class="event-title">Resepsi</h3>
                     <span class="event-date">Jumat, 20 Desember 2024</span>
-                    <span class="event-time">Pukul 18.00 – 21.00 WIB</span>
+                    <p>Pukul 18.00 – 21.00 WIB</p>
                     <p class="event-location">Grand Ballroom Aston Hotel<br>Jl. Palang Merah No. 88, Medan</p>
                     <a href="#" class="map-btn">Lihat Peta</a>
                 </div>
@@ -688,63 +762,75 @@
     </div>
 
     <script>
-        // Envelope Interaction
-        const envelope = document.getElementById('envelope');
-        const mainTitle = document.getElementById('main-title');
-        const subtitle = document.getElementById('subtitle');
-        const scrollIndicator = document.getElementById('scroll-indicator');
+        // Buat partikel emas
+        const goldDust = document.getElementById('goldDust');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            goldDust.appendChild(particle);
+        }
 
+        // Envelope
+        const envelope = document.getElementById('envelope');
         envelope.addEventListener('click', () => {
             envelope.classList.add('open');
-            setTimeout(() => {
-                mainTitle.style.display = 'block';
-                subtitle.style.display = 'block';
-                scrollIndicator.style.display = 'block';
-            }, 500);
+            // Mainkan musik setelah dibuka
+            const audio = document.getElementById('wedding-music');
+            audio.play().catch(e => console.log("Autoplay blocked"));
+            document.getElementById('playBtn').innerHTML = '<i class="fas fa-pause"></i>';
         });
+
+        // Scroll Animation
+        function animateOnScroll() {
+            const items = document.querySelectorAll('.timeline-item, .couple-card, .event-card');
+            items.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                const isVisible = itemTop < window.innerHeight - 100;
+                if (isVisible) item.classList.add('visible');
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Saat load
 
         // Countdown
         function updateCountdown() {
             const weddingDate = new Date('December 20, 2024 09:00:00').getTime();
             const now = new Date().getTime();
             const distance = weddingDate - now;
-
             if (distance < 0) return;
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
             document.getElementById('days').textContent = String(days).padStart(2, '0');
             document.getElementById('hours').textContent = String(hours).padStart(2, '0');
             document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
             document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
         }
-
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Music
+        // Music Toggle
         const playBtn = document.getElementById('playBtn');
         const audio = document.getElementById('wedding-music');
-        let isPlaying = false;
-
         playBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                audio.pause();
-                playBtn.innerHTML = '<i class="fas fa-play"></i>';
-            } else {
+            if (audio.paused) {
                 audio.play();
                 playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audio.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
             }
-            isPlaying = !isPlaying;
         });
 
-        // RSVP Form
+        // RSVP
         document.getElementById('rsvpForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Terima kasih! Konfirmasi kehadiran Anda telah kami terima.');
+            alert('Terima kasih! Konfirmasi kehadiran Anda telah kami terima dengan penuh sukacita.');
             e.target.reset();
         });
     </script>
