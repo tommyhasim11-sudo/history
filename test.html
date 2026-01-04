@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Chinese Wedding - Wijaya & Zhang</title>
+    <title>Imperial Wedding - Wijaya & Zhang</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Cinzel+Decorative:wght@400;700&family=Noto+Serif+SC:wght@300;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- VARIABLES --- */
+        /* --- CORE VARIABLES --- */
         :root {
+            --dark-bg: #1a0505;
             --china-red: #B71C1C;
-            --dark-red: #7F0000;
-            --gold: #FFD700;
-            --gold-gradient: linear-gradient(to bottom, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            --bg-cream: #FFF8E1;
-            --text-dark: #424242;
+            --neon-gold: #FFD700;
+            --gold-glow: 0 0 15px rgba(255, 215, 0, 0.6);
+            --glass: rgba(255, 255, 255, 0.05);
+            --border-glass: rgba(255, 215, 0, 0.3);
             
             --font-script: 'Ma Shan Zheng', cursive;
-            --font-serif: 'Playfair Display', serif;
+            --font-deco: 'Cinzel Decorative', cursive;
             --font-sc: 'Noto Serif SC', serif;
         }
 
@@ -29,318 +29,395 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Noto Serif SC', serif;
-            background-color: var(--bg-cream);
-            background-image: 
-                linear-gradient(45deg, #fdfbf7 25%, transparent 25%, transparent 75%, #fdfbf7 75%, #fdfbf7),
-                linear-gradient(45deg, #fdfbf7 25%, transparent 25%, transparent 75%, #fdfbf7 75%, #fdfbf7);
-            background-position: 0 0, 10px 10px;
-            background-size: 20px 20px;
-            color: var(--text-dark);
+            font-family: var(--font-sc);
+            background: radial-gradient(circle at center, #2b0000, #000000);
+            color: #e0e0e0;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; text-align: center; }
-        .section { padding: 80px 0; }
-
-        /* --- GOLD TEXT --- */
-        .gold-text {
-            background: var(--gold-gradient);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            font-family: var(--font-script);
-        }
-
-        /* --- DOOR (COVER) --- */
-        .door-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            z-index: 9999;
-            display: flex;
-        }
-
-        .door {
-            width: 50%;
-            height: 100%;
-            background: var(--china-red);
+        /* --- BACKGROUND ANIMATION (LANTERNS) --- */
+        .lantern-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            pointer-events: none;
             background-image: 
-                radial-gradient(circle, var(--dark-red) 10%, transparent 10%),
-                radial-gradient(circle, var(--gold) 2%, transparent 2%);
-            background-size: 60px 60px, 40px 40px;
-            position: absolute;
-            top: 0;
-            transition: transform 1.5s ease-in-out;
-            pointer-events: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 5px solid #5a0000;
+                radial-gradient(circle at 20% 30%, rgba(183, 28, 28, 0.2) 0%, transparent 10%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 10%),
+                radial-gradient(circle at 50% 80%, rgba(183, 28, 28, 0.2) 0%, transparent 15%);
+            animation: pulseBg 10s infinite alternate;
         }
 
-        .door-left { left: 0; border-right: 2px solid #000; transform-origin: left; }
-        .door-right { right: 0; border-left: 2px solid #000; transform-origin: right; }
+        @keyframes pulseBg { 0% { opacity: 0.8; } 100% { opacity: 1; } }
 
-        .door-container.open { pointer-events: none; }
-        .door-container.open .door-left { transform: perspective(1000px) rotateY(-100deg); }
-        .door-container.open .door-right { transform: perspective(1000px) rotateY(100deg); }
-
-        .door-content {
+        /* --- FALLING PETALS SYSTEM --- */
+        .petals-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; /* Biar bisa klik lewat daun */
+            z-index: 50;
+            overflow: hidden;
+        }
+        .petal {
             position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: var(--gold);
-            z-index: 10001;
-            width: 100%;
-            transition: opacity 0.5s;
-            pointer-events: auto;
+            background: rgba(183, 28, 28, 0.8);
+            width: 15px; height: 15px;
+            border-radius: 150% 0 150% 0;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translate(0, -10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translate(100px, 110vh) rotate(360deg); opacity: 0; }
         }
 
-        .door-container.open .door-content { opacity: 0; pointer-events: none; }
-
-        .double-happiness {
-            font-size: 6rem;
+        /* --- TYPOGRAPHY --- */
+        .gold-text-shine {
+            color: var(--neon-gold);
+            text-shadow: var(--gold-glow);
             font-family: var(--font-script);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
         }
 
-        .btn-open-door {
-            background: var(--gold);
-            color: var(--dark-red);
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            font-family: var(--font-serif);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: pulse 2s infinite;
-            z-index: 10002;
-        }
-
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
-        /* --- CARDS --- */
-        .card-red {
-            background: #fff;
-            border: 2px solid var(--china-red);
-            padding: 30px;
+        /* --- 3D CARD (TILT EFFECT) --- */
+        .section-3d {
+            perspective: 1000px;
+            padding: 80px 20px;
             position: relative;
-            box-shadow: 0 10px 25px rgba(183, 28, 28, 0.2);
-            margin-bottom: 40px;
-            border-radius: 4px;
+            z-index: 10;
         }
-        
-        .card-red::before {
-            content: ""; position: absolute;
-            width: 20px; height: 20px;
-            border: 4px solid var(--gold);
-            top: 5px; left: 5px;
+
+        .card-3d {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out; /* Smooth tilt */
+            position: relative;
         }
-        .card-red::after {
-            content: ""; position: absolute;
-            width: 20px; height: 20px;
-            border: 4px solid var(--gold);
-            bottom: 5px; right: 5px;
+
+        /* Hiasan Sudut Emas */
+        .card-3d::before {
+            content: "✦";
+            position: absolute;
+            top: 15px; left: 15px;
+            color: var(--neon-gold);
+            font-size: 1.5rem;
+            transform: translateZ(30px); /* Floating effect */
+        }
+        .card-3d::after {
+            content: "✦";
+            position: absolute;
+            bottom: 15px; right: 15px;
+            color: var(--neon-gold);
+            font-size: 1.5rem;
+            transform: translateZ(30px);
+        }
+
+        /* --- COVER --- */
+        #cover {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://picsum.photos/seed/redlantern/1920/1080.jpg');
+            background-size: cover;
+            z-index: 9999;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+            transition: opacity 1s ease, visibility 1s;
+            box-shadow: inset 0 0 100px #000;
+        }
+
+        #cover.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .content-3d {
+            transform: translateZ(50px); /* Text floating above card */
+        }
+
+        h1 { font-size: 3.5rem; letter-spacing: 2px; margin-bottom: 10px; font-family: var(--font-script); }
+        h2 { color: var(--neon-gold); font-family: var(--font-deco); letter-spacing: 3px; margin-bottom: 30px; }
+
+        /* --- BUTTONS --- */
+        .btn-premium {
+            background: transparent;
+            border: 2px solid var(--neon-gold);
+            color: var(--neon-gold);
+            padding: 15px 40px;
+            font-family: var(--font-deco);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        .btn-premium:hover {
+            background: var(--neon-gold);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-gold);
         }
 
         /* --- MUSIC BUTTON --- */
-        .music-btn {
-            position: fixed; bottom: 20px; right: 20px;
+        .music-player {
+            position: fixed; bottom: 30px; right: 30px;
             width: 60px; height: 60px;
-            background: var(--china-red);
-            border: 2px solid var(--gold);
             border-radius: 50%;
-            color: var(--gold);
+            background: rgba(183, 28, 28, 0.8);
+            border: 2px solid var(--neon-gold);
+            color: var(--neon-gold);
             display: flex; justify-content: center; align-items: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            z-index: 10000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
-        .music-btn.playing { animation: pulse 2s infinite; }
+        .music-player.playing {
+            animation: spinSlow 4s linear infinite;
+            box-shadow: 0 0 25px var(--neon-gold);
+        }
+        @keyframes spinSlow { 100% { transform: rotate(360deg); } }
 
         /* --- GUESTBOOK --- */
-        .gb-container {
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: left;
-        }
         .gb-input {
-            width: 100%; padding: 10px; margin-bottom: 10px;
-            border: 1px solid var(--china-red); border-radius: 4px;
+            width: 100%; padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--neon-gold);
+            color: white; margin-bottom: 10px; border-radius: 5px;
         }
         .gb-btn {
-            width: 100%; padding: 10px;
-            background: var(--china-red); color: white;
-            border: none; cursor: pointer; border-radius: 4px; font-weight: bold;
+            width: 100%; padding: 12px;
+            background: var(--china-red);
+            border: none; color: white; font-weight: bold;
+            cursor: pointer; border-radius: 5px;
+            border: 1px solid var(--neon-gold);
         }
-        .comment-item {
-            background: #fff5f5;
-            border-left: 3px solid var(--gold);
-            padding: 10px; margin-bottom: 10px;
+        .gb-btn:hover { background: #d32f2f; }
+
+        /* --- SCROLL ANIMATION --- */
+        .fade-in-section {
+            opacity: 0; transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
         }
-        /* --- ANIMATION --- */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .fade-in-section.is-visible {
+            opacity: 1; transform: translateY(0);
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- AUDIO: Romantic Piano -->
-    <!-- Jika ingin ganti lagu, ganti src="..." dengan nama file Anda (misal: src="Perfect.mp3") -->
-    <audio id="bg-music" loop preload="auto">
+    <!-- AUDIO -->
+    <audio id="bg-music" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-124974.mp3" type="audio/mpeg">
-        Browser Anda tidak mendukung elemen audio.
     </audio>
 
-    <!-- COVER / PINTU MERAH -->
-    <div class="door-container" id="doorCover">
-        <div class="door door-left">
-            <div style="position:absolute; top: 20%; width: 50px; height: 80px; border: 2px solid var(--gold); border-radius: 10px;"></div>
-        </div>
-        <div class="door door-right">
-            <div style="position:absolute; top: 20%; width: 50px; height: 80px; border: 2px solid var(--gold); border-radius: 10px;"></div>
-        </div>
+    <!-- BACKGROUND ELEMENTS -->
+    <div class="lantern-bg"></div>
+    <div class="petals-container" id="petalsContainer"></div>
 
-        <div class="door-content">
-            <h3 style="font-family: var(--font-serif); letter-spacing: 5px;">THE WEDDING OF</h3>
-            <div class="double-happiness">囍</div>
-            <h1 class="gold-text" style="font-size: 3rem; margin: 10px 0;">Wijaya & Zhang</h1>
-            <p style="margin-bottom: 30px;">20 . 12 . 2024</p>
-            <button class="btn-open-door" onclick="openDoor()">Buka Undangan</button>
-        </div>
+    <!-- COVER -->
+    <div id="cover">
+        <h2 style="font-size: 1.5rem; margin-bottom: 20px;">THE WEDDING OF</h2>
+        <div style="font-size: 8rem; color: var(--neon-gold); margin-bottom: 20px; animation: float 3s ease-in-out infinite;">囍</div>
+        <h1 style="color: var(--neon-gold); text-shadow: 0 0 20px rgba(255,215,0,0.5);">Wijaya & Zhang</h1>
+        <p style="letter-spacing: 3px; margin-bottom: 40px; color: #ccc;">20 . 12 . 2024</p>
+        <button class="btn-premium" onclick="openInvitation()">Buka Undangan</button>
     </div>
 
     <!-- MAIN CONTENT -->
     <main>
         <!-- HERO -->
-        <section class="container section">
-            <div class="card-red reveal">
-                <h2 class="gold-text" style="font-size: 3rem; margin-bottom: 20px;">Wijaya & Zhang</h2>
-                <div class="gold-text" style="font-size: 1.5rem;">恭 喜 发 财</div>
-                <p style="margin-top: 20px; line-height: 1.8;">
-                    Kami mengundang Anda untuk merayakan pernikahan kami. 
-                    Semoga kehadiran Anda membawa keberuntungan dan kebahagiaan.
-                </p>
+        <section class="section-3d fade-in-section">
+            <div class="card-3d tilt-element">
+                <div class="content-3d">
+                    <h2 class="gold-text-shine" style="font-size: 3rem;">Wijaya & Zhang</h2>
+                    <p style="font-style: italic; color: #ccc; margin-bottom: 20px;">"Cinta yang tulus tidak mengenal waktu dan ruang."</p>
+                    <p>
+                        Kami mengundang Anda untuk bersama menyaksikan momen sakral pernikahan kami.
+                        Semoga cinta kami memberikan inspirasi bagi Anda.
+                    </p>
+                </div>
             </div>
         </section>
 
         <!-- COUPLE -->
-        <section class="container section">
-            <h2 class="gold-text" style="font-size: 2.5rem; margin-bottom: 30px;">Mempelai</h2>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
-                <div class="card-red reveal" style="flex: 1; min-width: 280px;">
-                    <img src="https://picsum.photos/seed/man7/200/200" style="border-radius: 50%; border: 4px solid var(--gold); margin-bottom: 15px;">
-                    <h3 style="color: var(--china-red); font-family: var(--font-serif);">Wijaya Wijaya</h3>
-                    <p>Putra Bpk. Wijaya & Ibu Siti</p>
-                </div>
-                <div class="card-red reveal" style="flex: 1; min-width: 280px;">
-                    <img src="https://picsum.photos/seed/woman7/200/200" style="border-radius: 50%; border: 4px solid var(--gold); margin-bottom: 15px;">
-                    <h3 style="color: var(--china-red); font-family: var(--font-serif);">Zhang Li Li</h3>
-                    <p>Putri Bpk. Zhang & Ibu Mei</p>
+        <section class="section-3d fade-in-section">
+            <div class="card-3d tilt-element">
+                <div class="content-3d">
+                    <h2 class="gold-text-shine" style="font-size: 2.5rem; margin-bottom: 30px;">Mempelai</h2>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
+                        <div style="text-align: center;">
+                            <img src="https://picsum.photos/seed/man9/200/200" style="border-radius: 50%; border: 3px solid var(--neon-gold); box-shadow: 0 0 15px var(--china-red); margin-bottom: 15px;">
+                            <h3 style="color: var(--neon-gold);">Wijaya Wijaya</h3>
+                            <p style="font-size: 0.9rem;">Putra Bpk. Wijaya</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="https://picsum.photos/seed/woman9/200/200" style="border-radius: 50%; border: 3px solid var(--neon-gold); box-shadow: 0 0 15px var(--china-red); margin-bottom: 15px;">
+                            <h3 style="color: var(--neon-gold);">Zhang Li Li</h3>
+                            <p style="font-size: 0.9rem;">Putri Bpk. Zhang</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- EVENT -->
-        <section class="container section">
-            <div class="card-red reveal">
-                <h2 class="gold-text" style="font-size: 2.5rem;">Resepsi Pernikahan</h2>
-                <hr style="border-top: 1px dashed var(--gold); margin: 20px 0;">
-                
-                <div style="margin-bottom: 30px;">
-                    <h3 style="color: var(--china-red);">Akad Nikah</h3>
-                    <p style="font-weight: bold; font-size: 1.2rem;">09:00 WIB</p>
-                    <p>Vihara Dharma Bhakti, Jakarta</p>
-                </div>
+        <section class="section-3d fade-in-section">
+            <div class="card-3d tilt-element">
+                <div class="content-3d">
+                    <h2 class="gold-text-shine">Resepsi Pernikahan</h2>
+                    <div style="border-top: 1px solid var(--border-glass); margin: 20px 0;"></div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color: var(--neon-gold);">Akad Nikah</h3>
+                        <p style="font-weight: bold; font-size: 1.2rem;">09:00 WIB</p>
+                        <p>Vihara Dharma Bhakti</p>
+                    </div>
 
-                <div style="margin-bottom: 30px;">
-                    <h3 style="color: var(--china-red);">Resepsi Makan</h3>
-                    <p style="font-weight: bold; font-size: 1.2rem;">11:00 WIB - Selesai</p>
-                    <p>Grand Dragon Restaurant</p>
-                </div>
+                    <div>
+                        <h3 style="color: var(--neon-gold);">Resepsi Makan</h3>
+                        <p style="font-weight: bold; font-size: 1.2rem;">11:00 WIB</p>
+                        <p>Grand Dragon Restaurant</p>
+                    </div>
 
-                <a href="https://maps.google.com" style="color: var(--china-red); text-decoration: none; font-weight: bold;">📍 Lihat Lokasi</a>
+                    <br>
+                    <a href="https://maps.google.com" style="color: var(--neon-gold); text-decoration: none; border-bottom: 1px solid;">📍 Lihat Peta</a>
+                </div>
             </div>
         </section>
 
         <!-- ANGPAO -->
-        <section class="container section">
-            <div class="reveal">
-                <h2 class="gold-text" style="margin-bottom: 20px;">Wedding Gift (Angpao)</h2>
-                <div style="background: var(--china-red); color: var(--gold); padding: 30px; border-radius: 10px; border: 2px solid var(--gold); max-width: 400px; margin: 0 auto; cursor: pointer;">
-                    <h3 style="font-family: var(--font-script); font-size: 2.5rem; margin-bottom: 10px;">福</h3>
-                    <p>KEHADIRAN ANDA ADALAH KADO TERBAIK</p>
-                    <div style="background: rgba(0,0,0,0.2); padding: 15px; margin-top: 15px; border-radius: 5px;">
-                        <p style="font-weight: bold;">BCA</p>
-                        <p style="font-size: 1.4rem; letter-spacing: 2px;">123 456 7890</p>
-                        <p>a.n Wijaya</p>
+        <section class="section-3d fade-in-section">
+            <div class="card-3d tilt-element">
+                <div class="content-3d">
+                    <h2 class="gold-text-shine">Wedding Gift</h2>
+                    <div style="background: var(--china-red); padding: 25px; border-radius: 10px; margin-top: 20px; border: 2px solid var(--neon-gold);">
+                        <h3 style="font-family: var(--font-script); font-size: 2.5rem; color: var(--neon-gold); text-align: center;">福</h3>
+                        <div style="text-align: center; margin-bottom: 15px;">Doa Restu Anda Adalah Hadiah Terbaik</div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 5px; text-align: center;">
+                            <p style="font-weight: bold;">BCA</p>
+                            <p style="font-size: 1.4rem; letter-spacing: 2px; margin: 5px 0;">123 456 7890</p>
+                            <p>a.n Wijaya</p>
+                        </div>
+                        <button class="gb-btn" style="background: var(--neon-gold); color: #000; margin-top: 15px;" onclick="copyRekening('1234567890')">SALIN REKENING</button>
                     </div>
-                    <button class="gb-btn" style="margin-top: 15px; background: transparent; border: 1px solid white; color: white; font-size: 0.8rem;" onclick="copyRekening('1234567890')">SALIN REKENING</button>
                 </div>
             </div>
         </section>
 
         <!-- BUKU TAMU -->
-        <section class="container section">
-            <div class="card-red reveal">
-                <h2 class="gold-text" style="margin-bottom: 20px;">Buku Tamu</h2>
-                <div class="gb-container">
-                    <input type="text" id="gbName" class="gb-input" placeholder="Nama Anda">
-                    <textarea id="gbMsg" class="gb-input" rows="3" placeholder="Ucapan Selamat..."></textarea>
-                    <button class="gb-btn" onclick="saveComment()">Kirim Ucapan</button>
-                    <div style="text-align: right; margin-top: 5px;">
-                        <span onclick="clearComments()" style="font-size: 0.8rem; color: #999; cursor: pointer; text-decoration: underline;">Reset Data</span>
+        <section class="section-3d fade-in-section">
+            <div class="card-3d tilt-element">
+                <div class="content-3d">
+                    <h2 class="gold-text-shine">Buku Tamu</h2>
+                    <div style="text-align: left; margin-top: 20px;">
+                        <input type="text" id="gbName" class="gb-input" placeholder="Nama Anda">
+                        <textarea id="gbMsg" class="gb-input" rows="3" placeholder="Ucapan Selamat..."></textarea>
+                        <button class="gb-btn" onclick="saveComment()">Kirim Ucapan</button>
+                        <div style="text-align: right; margin-top: 5px;">
+                            <span onclick="clearComments()" style="color: #999; font-size: 0.8rem; cursor: pointer;">Reset Data</span>
+                        </div>
                     </div>
-                </div>
-                <div id="commentList" style="max-height: 300px; overflow-y: auto; margin-top: 20px;">
-                    <p style="text-align: center; color: #999;">Belum ada ucapan.</p>
+                    <div id="commentList" style="max-height: 300px; overflow-y: auto; margin-top: 20px; text-align: left; padding-right: 10px;">
+                        <p style="text-align: center; color: #999;">Belum ada ucapan.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer style="background: var(--dark-red); color: white; padding: 40px 20px; text-align: center;">
-            <h1 class="gold-text" style="font-size: 2.5rem;">Wijaya & Zhang</h1>
-            <p>GONG XI FA CAI</p>
+        <footer style="text-align: center; padding: 40px; color: #777;">
+            <h2 class="gold-text-shine" style="font-size: 2rem;">Wijaya & Zhang</h2>
         </footer>
     </main>
 
     <!-- MUSIC BUTTON -->
-    <div class="music-btn" id="musicBtn" onclick="toggleMusic()">♪</div>
+    <div class="music-player" id="musicBtn" onclick="toggleMusic()">♪</div>
 
     <script>
+        /* --- 1. FALLING PETALS SYSTEM --- */
+        function createPetals() {
+            const container = document.getElementById('petalsContainer');
+            const petalCount = 30; // Jumlah daun
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // Random positioning and animation duration
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = Math.random() * 5 + 5 + 's'; // 5-10s
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                
+                // Random opacity and size variation
+                petal.style.opacity = Math.random();
+                const size = Math.random() * 10 + 10;
+                petal.style.width = size + 'px';
+                petal.style.height = size + 'px';
+
+                container.appendChild(petal);
+            }
+        }
+        createPetals();
+
+        /* --- 2. 3D TILT EFFECT (VANILLA JS) --- */
+        const cards = document.querySelectorAll('.tilt-element');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', handleTilt);
+            card.addEventListener('mouseleave', resetTilt);
+            card.addEventListener('touchmove', handleTilt); // For mobile touch
+        });
+
+        function handleTilt(e) {
+            const card = this;
+            const rect = card.getBoundingClientRect();
+            
+            // Get mouse/touch position relative to center of card
+            let x, y;
+            if(e.type === 'touchmove') {
+                x = e.touches[0].clientX - rect.left;
+                y = e.touches[0].clientY - rect.top;
+            } else {
+                x = e.clientX - rect.left;
+                y = e.clientY - rect.top;
+            }
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Calculate rotation (max 15 deg)
+            const rotateX = ((y - centerY) / centerY) * -10; 
+            const rotateY = ((x - centerX) / centerX) * 10;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+
+        function resetTilt() {
+            this.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        }
+
+        /* --- 3. OPEN INVITATION & MUSIC --- */
         const music = document.getElementById('bg-music');
-        const cover = document.getElementById('doorCover');
+        const cover = document.getElementById('cover');
         const musicBtn = document.getElementById('musicBtn');
 
-        function openDoor() {
-            cover.classList.add('open');
-            
-            // Coba putar musik dengan volume maksimal
-            music.volume = 1.0; 
+        function openInvitation() {
+            cover.classList.add('hidden');
+            music.volume = 0.8;
             
             const playPromise = music.play();
-            
             if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // Musik berhasil diputar otomatis
+                playPromise.then(() => {
                     musicBtn.classList.add('playing');
-                    console.log("Musik jalan otomatis");
-                })
-                .catch(error => {
-                    // Browser MEMBLOKIR musik otomatis
-                    console.log("Autoplay blocked");
-                    alert("Musik otomatis diblokir browser. Silakan KLIK tombol musik 🎵 di pojok kanan bawah!");
+                }).catch(e => {
+                    alert("Musik diblokir browser. Klik tombol musik di pojok kanan.");
                 });
             }
         }
@@ -355,33 +432,34 @@
             }
         }
 
-        // Animasi Scroll
+        /* --- 4. SCROLL REVEAL --- */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if(entry.isIntersecting) entry.target.classList.add('active');
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
             });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Copy Rekening
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        /* --- 5. STORAGE & COPY --- */
         function copyRekening(no) {
             const textArea = document.createElement("textarea");
-            textArea.value = no;
-            document.body.appendChild(textArea);
+            textArea.value = no; document.body.appendChild(textArea);
             textArea.select();
-            try {
-                document.execCommand('copy');
-                alert("Nomor Rekening berhasil disalin!");
-            } catch (err) { alert("Gagal menyalin"); }
+            document.execCommand('copy');
+            alert("Nomor Rekening tersimpan!");
             document.body.removeChild(textArea);
         }
 
-        // Save Comment
-        const STORAGE_KEY = 'china_wedding_romantic';
+        const STORAGE_KEY = 'imperial_wedding';
         function saveComment() {
             const name = document.getElementById('gbName').value;
             const msg = document.getElementById('gbMsg').value;
-            if(!name || !msg) { alert("Mohon isi nama dan ucapan"); return; }
+            if(!name || !msg) { alert("Isi Nama dan Pesan"); return; }
             let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             data.unshift({ name: name, msg: msg, date: new Date().toLocaleTimeString() });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -394,22 +472,16 @@
             if(data.length === 0) { list.innerHTML = '<p style="text-align: center; color: #999;">Belum ada ucapan.</p>'; return; }
             data.forEach(c => {
                 const div = document.createElement('div');
-                div.className = 'comment-item';
-                div.innerHTML = `<div style="display:flex; justify-content:space-between;"><span style="color:var(--china-red); font-weight:bold;">${c.name}</span><span style="font-size:0.8rem; color:#888;">${c.date}</span></div><div>${c.msg}</div><div style="text-align:right;"><span onclick="del('${c.date}')" style="color:red; font-size:0.7rem; cursor:pointer;">Hapus</span></div>`;
+                div.style.borderLeft = '3px solid var(--neon-gold)'; div.style.background = 'rgba(0,0,0,0.2)';
+                div.style.padding = '10px'; div.style.marginBottom = '10px'; div.style.borderRadius = '4px';
+                div.innerHTML = `<div style="color:var(--neon-gold); font-weight:bold; margin-bottom:5px;">${c.name} <span style="float:right; color:#888; font-size:0.8rem;">${c.date}</span></div><div>${c.msg}</div><div style="text-align:right;"><span onclick="del('${c.date}')" style="color:red; font-size:0.7rem; cursor:pointer;">Hapus</span></div>`;
                 list.appendChild(div);
             });
         }
         function del(date) {
-            if(confirm("Hapus?")) {
-                let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-                data = data.filter(c => c.date !== date);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-                loadComments();
-            }
+            if(confirm("Hapus?")) { let d = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; d = d.filter(c => c.date !== date); localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); loadComments(); }
         }
-        function clearComments() {
-            if(confirm("Hapus semua?")) { localStorage.removeItem(STORAGE_KEY); loadComments(); }
-        }
+        function clearComments() { if(confirm("Hapus semua?")) { localStorage.removeItem(STORAGE_KEY); loadComments(); } }
         loadComments();
     </script>
 </body>
