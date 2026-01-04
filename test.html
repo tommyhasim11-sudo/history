@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Chinese Wedding - Wijaya & Zhang</title>
     
-    <!-- Google Fonts: Kaligrafi China & Serif Elegan -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
         .container { max-width: 800px; margin: 0 auto; padding: 0 20px; text-align: center; }
         .section { padding: 80px 0; }
 
-        /* --- GOLD TEXT EFFECT --- */
+        /* --- GOLD TEXT --- */
         .gold-text {
             background: var(--gold-gradient);
             background-clip: text;
@@ -52,13 +52,12 @@
             font-family: var(--font-script);
         }
 
-        /* --- THE RED DOOR (COVER) --- */
+        /* --- DOOR (COVER) --- */
         .door-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
             z-index: 9999;
             display: flex;
-            /* pointer-events: none; dihapus disini agar tombol buka tetap bisa diklik */
         }
 
         .door {
@@ -72,7 +71,7 @@
             position: absolute;
             top: 0;
             transition: transform 1.5s ease-in-out;
-            pointer-events: auto; /* Pintu bisa diklik */
+            pointer-events: auto;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -82,11 +81,7 @@
         .door-left { left: 0; border-right: 2px solid #000; transform-origin: left; }
         .door-right { right: 0; border-left: 2px solid #000; transform-origin: right; }
 
-        /* PERBAIKAN: Saat terbuka, pointer-events none agar klik tembus ke konten */
-        .door-container.open {
-            pointer-events: none; 
-        }
-
+        .door-container.open { pointer-events: none; }
         .door-container.open .door-left { transform: perspective(1000px) rotateY(-100deg); }
         .door-container.open .door-right { transform: perspective(1000px) rotateY(100deg); }
 
@@ -99,7 +94,7 @@
             z-index: 10001;
             width: 100%;
             transition: opacity 0.5s;
-            pointer-events: auto; /* Konten tombol buka bisa diklik */
+            pointer-events: auto;
         }
 
         .door-container.open .door-content { opacity: 0; pointer-events: none; }
@@ -125,12 +120,12 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             animation: pulse 2s infinite;
-            z-index: 10002; /* Pastikan di atas pintu */
+            z-index: 10002;
         }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-        /* --- CONTENT CARDS --- */
+        /* --- CARDS --- */
         .card-red {
             background: #fff;
             border: 2px solid var(--china-red);
@@ -139,10 +134,8 @@
             box-shadow: 0 10px 25px rgba(183, 28, 28, 0.2);
             margin-bottom: 40px;
             border-radius: 4px;
-            z-index: 10; /* Pastikan konten bisa diakses */
         }
         
-        /* Sudut Emas */
         .card-red::before {
             content: ""; position: absolute;
             width: 20px; height: 20px;
@@ -156,21 +149,21 @@
             bottom: 5px; right: 5px;
         }
 
-        /* --- ANGPAO CARD --- */
-        .angpao-digital {
+        /* --- MUSIC BUTTON --- */
+        .music-btn {
+            position: fixed; bottom: 20px; right: 20px;
+            width: 60px; height: 60px;
             background: var(--china-red);
-            color: var(--gold);
-            padding: 30px;
-            border-radius: 10px;
             border: 2px solid var(--gold);
-            max-width: 400px;
-            margin: 0 auto;
-            position: relative;
+            border-radius: 50%;
+            color: var(--gold);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.8rem;
             cursor: pointer;
-            transition: 0.3s;
+            z-index: 10000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .angpao-digital:hover { transform: scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        .angpao-digital h3 { font-family: var(--font-script); font-size: 2.5rem; margin-bottom: 10px; }
+        .music-btn.playing { animation: pulse 2s infinite; }
 
         /* --- GUESTBOOK --- */
         .gb-container {
@@ -182,74 +175,42 @@
             text-align: left;
         }
         .gb-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid var(--china-red);
-            border-radius: 4px;
-            font-family: inherit;
+            width: 100%; padding: 10px; margin-bottom: 10px;
+            border: 1px solid var(--china-red); border-radius: 4px;
         }
         .gb-btn {
-            width: 100%;
-            padding: 10px;
-            background: var(--china-red);
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            font-weight: bold;
+            width: 100%; padding: 10px;
+            background: var(--china-red); color: white;
+            border: none; cursor: pointer; border-radius: 4px; font-weight: bold;
         }
-
         .comment-item {
             background: #fff5f5;
             border-left: 3px solid var(--gold);
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 10px; margin-bottom: 10px;
         }
-        .comment-name { color: var(--china-red); font-weight: bold; }
-
-        /* --- MUSIC BUTTON --- */
-        .music-btn {
-            position: fixed; bottom: 20px; right: 20px;
-            width: 50px; height: 50px;
-            background: var(--china-red);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            color: var(--gold);
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 10000; /* Di atas pintu */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        /* --- SCROLL ANIMATION --- */
-        .reveal {
-            opacity: 0; transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
+        /* --- ANIMATION --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-    <!-- AUDIO -->
-    <audio id="bg-music" loop>
-        <source src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Canon_in_D_Major.ogg" type="audio/ogg">
+    <!-- AUDIO: Romantic Piano -->
+    <!-- Jika ingin ganti lagu, ganti src="..." dengan nama file Anda (misal: src="Perfect.mp3") -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-124974.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
     </audio>
 
-    <!-- PINTU MERAH (COVER) -->
+    <!-- COVER / PINTU MERAH -->
     <div class="door-container" id="doorCover">
         <div class="door door-left">
-            <!-- Hiasan pada pintu kiri -->
             <div style="position:absolute; top: 20%; width: 50px; height: 80px; border: 2px solid var(--gold); border-radius: 10px;"></div>
         </div>
         <div class="door door-right">
-            <!-- Hiasan pada pintu kanan -->
             <div style="position:absolute; top: 20%; width: 50px; height: 80px; border: 2px solid var(--gold); border-radius: 10px;"></div>
         </div>
 
-        <!-- Isi Tengah Pintu -->
         <div class="door-content">
             <h3 style="font-family: var(--font-serif); letter-spacing: 5px;">THE WEDDING OF</h3>
             <div class="double-happiness">囍</div>
@@ -312,12 +273,12 @@
             </div>
         </section>
 
-        <!-- ANGPAO DIGITAL -->
+        <!-- ANGPAO -->
         <section class="container section">
             <div class="reveal">
                 <h2 class="gold-text" style="margin-bottom: 20px;">Wedding Gift (Angpao)</h2>
-                <div class="angpao-digital">
-                    <h3>福</h3>
+                <div style="background: var(--china-red); color: var(--gold); padding: 30px; border-radius: 10px; border: 2px solid var(--gold); max-width: 400px; margin: 0 auto; cursor: pointer;">
+                    <h3 style="font-family: var(--font-script); font-size: 2.5rem; margin-bottom: 10px;">福</h3>
                     <p>KEHADIRAN ANDA ADALAH KADO TERBAIK</p>
                     <div style="background: rgba(0,0,0,0.2); padding: 15px; margin-top: 15px; border-radius: 5px;">
                         <p style="font-weight: bold;">BCA</p>
@@ -329,7 +290,7 @@
             </div>
         </section>
 
-        <!-- BUKU TAMU (SAVE) -->
+        <!-- BUKU TAMU -->
         <section class="container section">
             <div class="card-red reveal">
                 <h2 class="gold-text" style="margin-bottom: 20px;">Buku Tamu</h2>
@@ -358,104 +319,87 @@
     <div class="music-btn" id="musicBtn" onclick="toggleMusic()">♪</div>
 
     <script>
-        // --- 1. OPEN DOOR & MUSIC ---
         const music = document.getElementById('bg-music');
         const cover = document.getElementById('doorCover');
         const musicBtn = document.getElementById('musicBtn');
 
         function openDoor() {
             cover.classList.add('open');
-            // Play music
-            music.play().then(() => {
-                musicBtn.style.animation = "pulse 2s infinite";
-            }).catch(e => console.log("Autoplay blocked"));
+            
+            // Coba putar musik dengan volume maksimal
+            music.volume = 1.0; 
+            
+            const playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Musik berhasil diputar otomatis
+                    musicBtn.classList.add('playing');
+                    console.log("Musik jalan otomatis");
+                })
+                .catch(error => {
+                    // Browser MEMBLOKIR musik otomatis
+                    console.log("Autoplay blocked");
+                    alert("Musik otomatis diblokir browser. Silakan KLIK tombol musik 🎵 di pojok kanan bawah!");
+                });
+            }
         }
 
         function toggleMusic() {
             if (music.paused) {
                 music.play();
-                musicBtn.style.animation = "pulse 2s infinite";
+                musicBtn.classList.add('playing');
             } else {
                 music.pause();
-                musicBtn.style.animation = "none";
+                musicBtn.classList.remove('playing');
             }
         }
 
-        // --- 2. SCROLL ANIMATION ---
+        // Animasi Scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- 3. COPY REKENING (FIXED) ---
+        // Copy Rekening
         function copyRekening(no) {
-            // Metode ini bekerja di file:// (lokal) dan https
             const textArea = document.createElement("textarea");
             textArea.value = no;
             document.body.appendChild(textArea);
             textArea.select();
-            
             try {
                 document.execCommand('copy');
                 alert("Nomor Rekening berhasil disalin!");
-            } catch (err) {
-                alert("Gagal menyalin, silakan copy manual: " + no);
-            }
-            
+            } catch (err) { alert("Gagal menyalin"); }
             document.body.removeChild(textArea);
         }
 
-        // --- 4. SAVE COMMENT (LocalStorage) ---
-        const STORAGE_KEY = 'china_door_wedding_fixed';
-
+        // Save Comment
+        const STORAGE_KEY = 'china_wedding_romantic';
         function saveComment() {
             const name = document.getElementById('gbName').value;
             const msg = document.getElementById('gbMsg').value;
-
             if(!name || !msg) { alert("Mohon isi nama dan ucapan"); return; }
-
             let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            data.unshift({
-                name: name,
-                msg: msg,
-                date: new Date().toLocaleTimeString()
-            });
-
+            data.unshift({ name: name, msg: msg, date: new Date().toLocaleTimeString() });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-            document.getElementById('gbName').value = '';
-            document.getElementById('gbMsg').value = '';
-            loadComments();
+            document.getElementById('gbName').value = ''; document.getElementById('gbMsg').value = ''; loadComments();
         }
-
         function loadComments() {
             const list = document.getElementById('commentList');
             const data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             list.innerHTML = '';
-
-            if(data.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: #999;">Belum ada ucapan.</p>';
-                return;
-            }
-
+            if(data.length === 0) { list.innerHTML = '<p style="text-align: center; color: #999;">Belum ada ucapan.</p>'; return; }
             data.forEach(c => {
                 const div = document.createElement('div');
                 div.className = 'comment-item';
-                div.innerHTML = `
-                    <div style="display:flex; justify-content:space-between;">
-                        <span class="comment-name">${c.name}</span>
-                        <span style="font-size:0.8rem; color:#888;">${c.date}</span>
-                    </div>
-                    <div>${c.msg}</div>
-                    <div style="text-align:right;"><span onclick="delComment('${c.date}')" style="color:red; font-size:0.7rem; cursor:pointer;">Hapus</span></div>
-                `;
+                div.innerHTML = `<div style="display:flex; justify-content:space-between;"><span style="color:var(--china-red); font-weight:bold;">${c.name}</span><span style="font-size:0.8rem; color:#888;">${c.date}</span></div><div>${c.msg}</div><div style="text-align:right;"><span onclick="del('${c.date}')" style="color:red; font-size:0.7rem; cursor:pointer;">Hapus</span></div>`;
                 list.appendChild(div);
             });
         }
-
-        function delComment(date) {
+        function del(date) {
             if(confirm("Hapus?")) {
                 let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
                 data = data.filter(c => c.date !== date);
@@ -463,15 +407,9 @@
                 loadComments();
             }
         }
-
         function clearComments() {
-            if(confirm("Hapus semua?")) {
-                localStorage.removeItem(STORAGE_KEY);
-                loadComments();
-            }
+            if(confirm("Hapus semua?")) { localStorage.removeItem(STORAGE_KEY); loadComments(); }
         }
-
-        // Load Start
         loadComments();
     </script>
 </body>
