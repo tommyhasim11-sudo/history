@@ -3,430 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Digital - Tommy & Mariska</title>
+    <title>The Wedding of Tommy & Mariska</title>
     
-    <!-- Fonts: Cinzel (Royal Serif) & Montserrat (Modern) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Fonts: Playfair Display (Elegant Serif) & Lato (Clean Sans) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-dark: #0f172a;       /* Biru Tua Malam */
-            --card-bg: #1e293b;       /* Abu Keabuan */
-            --gold: #D4AF37;          /* Emas */
-            --text-gray: #94a3b8;
-            --white: #ffffff;
+            --bg-deep: #050505;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --gold: #d4af37;
+            --gold-glow: #f9d423;
+            --text-main: #e2e8f0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         html { scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--white);
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden; /* Mencegah scroll horizontal saat cover ada */
-        }
-
-        h1, h2, h3 { font-family: 'Cinzel', serif; }
-        .text-gold { color: var(--gold); }
-
-        /* --- 1. COVER / OPENING (CLICKABLE) --- */
-        #cover-opening {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://picsum.photos/seed/luxurywedding/1080/1920.jpg');
-            background-size: cover; background-position: center;
-            z-index: 9999;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            text-align: center;
-            color: #fff;
-            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
-            /* Bingkai Emas Mewah */
-            border: 10px solid var(--gold);
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
-        }
         
-        #cover-opening.open {
-            transform: translateY(-100%); /* Geser ke atas */
+        body {
+            background: var(--bg-deep);
+            background-image: var(--bg-gradient);
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .cover-content {
-            border: 1px solid var(--gold);
-            padding: 40px 60px;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            max-width: 90%;
-        }
-
-        .btn-royal {
-            margin-top: 30px;
-            padding: 15px 50px;
-            background: var(--gold);
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        .text-gold { color: var(--gold); }
+        
+        /* --- UTILITIES --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        .btn {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--gold), #b48811);
             color: #000;
             border: none;
-            font-family: 'Cinzel', serif;
+            border-radius: 50px;
             font-weight: 700;
-            font-size: 1rem;
             cursor: pointer;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 4px;
             transition: 0.3s;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            display: inline-flex; align-items: center; gap: 10px;
         }
-        .btn-royal:hover { background: #fff; color: var(--gold); }
-
-        /* --- 2. MAIN CONTENT --- */
-        main {
-            padding-top: 0; /* Konten dimulai dari atas */
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); }
+        
+        /* --- SCROLL ANIMATION CLASSES --- */
+        .reveal {
             opacity: 0;
-            transition: opacity 1s ease; /* Fade in saat cover dibuka */
+            transform: translateY(50px);
+            transition: all 1s ease;
         }
-        main.visible { opacity: 1; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        section { padding: 80px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
-        
-        .section-title {
-            margin-bottom: 50px;
-            border-bottom: 1px solid var(--gold);
-            display: inline-block;
-            padding-bottom: 20px;
-            width: 100%;
+        /* --- 1. COVER (FULL SCREEN) --- */
+        #cover {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: url('https://picsum.photos/seed/weddingnight/1920/1080.jpg') no-repeat center/cover;
+            z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+            overflow: hidden;
         }
-        .section-title h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 10px; }
+        #cover::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
+        }
+        #cover.open { transform: translateY(-100%); pointer-events: none; }
 
-        /* --- 3. MEMPELAI --- */
-        .couple-grid {
-            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+        .cover-content {
+            position: relative; z-index: 2; text-align: center;
+            padding: 40px; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.4); border-radius: 20px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 2s ease;
         }
-        .photo-frame {
-            width: 180px; height: 180px; margin: 0 auto 20px;
-            border-radius: 50%; border: 2px solid var(--gold); padding: 5px;
-        }
-        .photo-frame img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        /* --- 4. DATABASE / GUESTBOOK (STORAGE) --- */
-        .guestbook-card {
-            background: var(--card-bg);
-            padding: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        /* --- 2. NAVIGATION (STICKY) --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 15px 0;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            z-index: 100;
+            transform: translateY(-100%);
+            transition: 0.5s;
+            border-bottom: 1px solid var(--glass-border);
         }
-        
-        .input-group { margin-bottom: 15px; text-align: left; }
-        .input-royal {
-            width: 100%; padding: 12px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--gold);
-            color: #fff; border-radius: 5px;
-            font-family: 'Montserrat', sans-serif;
-        }
-        .input-royal:focus { outline: none; background: rgba(0,0,0,0.5); border-color: #fff; }
+        nav.visible { transform: translateY(0); }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-family: 'Playfair Display'; font-weight: 700; color: var(--gold); font-size: 1.2rem; }
+        .nav-links a { color: #fff; text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
 
-        .btn-submit {
-            width: 100%; padding: 12px;
-            background: var(--gold); color: #000;
-            border: none; font-weight: 600; cursor: pointer;
-            border-radius: 5px; text-transform: uppercase; letter-spacing: 1px;
+        /* --- 3. HERO SECTION --- */
+        header {
+            padding: 150px 20px 100px; text-align: center;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
         }
-        .btn-submit:hover { background: #fff; color: var(--gold); }
+        .bismillah { font-size: 1.5rem; margin-bottom: 20px; opacity: 0.8; }
+        .big-names { font-size: 4rem; line-height: 1.2; margin: 20px 0; background: linear-gradient(to right, #fff, var(--gold), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* List Pesan yang Tersimpan */
-        #message-list {
-            margin-top: 30px; text-align: left;
-            max-height: 400px; overflow-y: auto;
-            padding-right: 10px;
+        /* --- 4. COUPLE (FLOATING CARDS) --- */
+        .couple-wrapper { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 50px; }
+        .couple-card {
+            background: var(--glass);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            width: 300px;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
         }
-        /* Scrollbar Kustom */
-        #message-list::-webkit-scrollbar { width: 5px; }
-        #message-list::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        .couple-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.08); }
+        .couple-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            transform: rotate(45deg);
+        }
+        .img-box {
+            width: 150px; height: 150px; border-radius: 50%; overflow: hidden;
+            margin: 0 auto 20px; border: 3px solid var(--gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .img-box.delayed { animation-delay: 1s; } /* Offset animation */
 
-        .message-item {
-            background: rgba(255,255,255,0.05);
-            padding: 15px; margin-bottom: 15px;
-            border-left: 3px solid var(--gold);
-            border-radius: 4px;
-            animation: slideIn 0.3s ease;
+        /* --- 5. COUNTDOWN --- */
+        .countdown-box {
+            display: flex; justify-content: center; gap: 20px; margin: 50px 0;
         }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-        
-        .msg-name { color: var(--gold); font-weight: bold; font-size: 1.1rem; }
-        .msg-date { float: right; font-size: 0.7rem; color: #666; margin-top: 5px; }
-        .btn-delete { color: #ef4444; font-size: 0.8rem; cursor: pointer; text-decoration: underline; float: right; margin-left: 10px; }
+        .time-item {
+            text-align: center; background: var(--glass); padding: 20px;
+            border-radius: 10px; min-width: 80px; border: 1px solid var(--gold);
+        }
+        .time-num { font-size: 2rem; font-weight: 700; color: var(--gold); font-family: 'Playfair Display'; }
+        .time-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- MUSIC & FOOTER --- */
-        footer { text-align: center; padding: 40px; background: var(--card-bg); color: var(--text-gray); border-top: 1px solid var(--gold); }
-        
-        .music-btn {
-            position: fixed; bottom: 30px; right: 30px;
-            width: 50px; height: 50px; background: var(--card-bg);
-            color: var(--gold); border: 1px solid var(--gold); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        /* --- 6. DATABASE / WISHES (Chat UI) --- */
+        .wishes-section { padding: 80px 20px; }
+        .wishes-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+            background: var(--glass); border-radius: 20px; padding: 40px;
+            border: 1px solid var(--glass-border);
         }
-        .music-btn.playing { animation: spin 4s linear infinite; }
+        @media(max-width: 768px) { .wishes-container { grid-template-columns: 1fr; } }
+
+        .wish-form input, .wish-form textarea {
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid #333;
+            color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px;
+            font-family: 'Lato'; transition: 0.3s;
+        }
+        .wish-form input:focus, .wish-form textarea:focus { border-color: var(--gold); background: rgba(0,0,0,0.5); }
+
+        .wish-list {
+            height: 400px; overflow-y: auto; padding-right: 10px;
+        }
+        .wish-list::-webkit-scrollbar { width: 5px; }
+        .wish-list::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; }
+
+        .wish-card {
+            background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;
+            margin-bottom: 15px; border-left: 3px solid var(--gold);
+            animation: slideLeft 0.5s ease;
+        }
+        .wish-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .wish-name { font-weight: 700; color: var(--gold); }
+        .wish-date { font-size: 0.7rem; color: #888; }
+        .like-btn {
+            color: #888; cursor: pointer; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .like-btn.liked { color: #e11d48; }
+        .like-btn:hover { color: #e11d48; }
+
+        /* --- 7. FALLING PETALS ANIMATION --- */
+        .petal {
+            position: fixed; top: -10%; z-index: 1;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,192,203,0.4));
+            border-radius: 150% 0 150% 0;
+            animation: fall linear infinite;
+            pointer-events: none;
+        }
+        @keyframes fall {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            100% { transform: translate(100px, 110vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes slideLeft { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- MUSIC CONTROL (VINYL STYLE) --- */
+        .music-player {
+            position: fixed; bottom: 30px; right: 30px; z-index: 100;
+            width: 50px; height: 50px; background: #000; border-radius: 50%;
+            border: 2px solid var(--gold); display: flex; justify-content: center; align-items: center;
+            cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .music-player.playing { animation: spin 4s linear infinite; background: url('https://picsum.photos/seed/vinyl/100/100') center/cover; }
+        .music-player i { color: var(--gold); font-size: 1.2rem; z-index: 2; }
+        .music-player.playing i { color: transparent; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Toast Notification (Pengganti Alert) */
+        /* TOAST */
         #toast {
-            visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center;
-            border-radius: 5px; padding: 16px; position: fixed; z-index: 1000; left: 50%; bottom: 30px;
-            transform: translateX(-50%); font-size: 17px;
+            visibility: hidden; min-width: 250px; background: #fff; color: #000; text-align: center;
+            border-radius: 50px; padding: 15px 30px; position: fixed; z-index: 10000; 
+            left: 50%; bottom: 30px; transform: translateX(-50%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-weight: bold; opacity: 0; transition: 0.3s;
         }
-        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
 
-        @media (max-width: 600px) {
-            .cover-content { padding: 30px 20px; }
-            .section-title h2 { font-size: 2rem; }
-            .couple-grid { flex-direction: column; }
-        }
     </style>
 </head>
 <body>
 
     <!-- AUDIO -->
     <audio id="bg-music" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=romantic-wedding-112463.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3?filename=romantic-wedding-193116.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 1. COVER / OPENING (CLICKABLE) -->
-    <div id="cover-opening">
+    <!-- 1. NAVIGATION -->
+    <nav id="navbar">
+        <div class="container nav-content">
+            <div class="nav-logo">T & M</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#couple">Couple</a>
+                <a href="#wishes">Ucapan</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. COVER -->
+    <div id="cover">
         <div class="cover-content">
-            <p style="letter-spacing: 5px; font-size: 0.9rem; margin-bottom: 10px;">THE WEDDING OF</p>
-            <h1 style="font-size: 3rem; margin-bottom: 10px; color: var(--gold);">Tommy & Mariska</h1>
-            <p style="letter-spacing: 2px; margin-bottom: 30px;">20 . 12 . 2024</p>
-            <button class="btn-royal" onclick="openInvitation()">
-                <i class="fas fa-envelope-open"></i> Buka Undangan
+            <p style="letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 20px;">THE WEDDING OF</p>
+            <h1 class="serif" style="font-size: 3rem; color: var(--gold); margin-bottom: 10px;">Tommy & Mariska</h1>
+            <div style="width: 50px; height: 2px; background: var(--gold); margin: 20px auto;"></div>
+            <p style="letter-spacing: 2px; font-size: 1.2rem;">20 . 12 . 2024</p>
+            <br>
+            <button class="btn" onclick="openInvitation()">
+                <i class="fas fa-envelope-open"></i> Open Invitation
             </button>
         </div>
     </div>
 
-    <!-- MAIN CONTENT (Database System) -->
-    <main id="main-content">
+    <!-- MAIN CONTENT -->
+    <main id="home">
         
-        <!-- 2. HERO -->
-        <section>
-            <div class="section-title">
-                <h2>Selamat Datang</h2>
+        <!-- HEADER / HERO -->
+        <header class="container reveal">
+            <div class="bismillah">﷽</div>
+            <h2 class="serif text-gold">We Are Getting Married</h2>
+            <div class="big-names serif">
+                Tommy<br>&<br>Mariska
             </div>
-            <p style="color: #ccc; font-style: italic;">
-                "Cinta adalah kunci yang membuka pintu kebahagiaan."
+            <p style="max-width: 600px; margin: 0 auto; color: #ccc;">
+                "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya."
             </p>
-        </section>
+        </header>
 
-        <!-- 3. MEMPELAI -->
-        <section>
-            <div class="section-title">
-                <h2>Mempelai</h2>
-            </div>
-            <div class="couple-grid">
-                <div>
-                    <div class="photo-frame"><img src="https://picsum.photos/seed/groom1/400/400" alt="Groom"></div>
-                    <h3 class="text-gold">Tommy Hasim</h3>
-                    <p style="font-size: 0.9rem; color: #888;">Putra Bpk. Hasim</p>
-                </div>
-                <div>
-                    <div class="photo-frame"><img src="https://picsum.photos/seed/bride1/400/400" alt="Bride"></div>
-                    <h3 class="text-gold">Mariska Zhang</h3>
-                    <p style="font-size: 0.9rem; color: #888;">Putri Bpk. Zhang</p>
-                </div>
+        <!-- COUNTDOWN -->
+        <section class="container reveal" style="text-align: center;">
+            <h3 class="serif" style="margin-bottom: 30px;">Menuju Hari Bahagia</h3>
+            <div class="countdown-box" id="countdown">
+                <!-- Diisi oleh JS -->
             </div>
         </section>
 
-        <!-- 4. DATABASE / GUESTBOOK (SIMPAN DATA) -->
-        <section>
-            <div class="section-title">
-                <h2>Buku Tamu</h2>
+        <!-- COUPLE -->
+        <section id="couple" class="container reveal">
+            <h2 class="serif text-gold" style="text-align: center; margin-bottom: 50px;">Mempelai</h2>
+            <div class="couple-wrapper">
+                <!-- Groom -->
+                <div class="couple-card">
+                    <div class="img-box">
+                        <img src="https://picsum.photos/seed/tommycool/300/300" alt="Tommy">
+                    </div>
+                    <h3 class="serif text-gold" style="font-size: 1.5rem;">Tommy Hasim</h3>
+                    <p style="font-size: 0.9rem; margin-top: 10px; color: #aaa;">Putra Bpk. Hasim & Ibu Siti</p>
+                    <div style="margin-top: 15px;">
+                        <a href="#" style="color: #fff; margin: 0 5px;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: #fff; margin: 0 5px;"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Bride -->
+                <div class="couple-card">
+                    <div class="img-box delayed">
+                        <img src="https://picsum.photos/seed/mariskacool/300/300" alt="Mariska">
+                    </div>
+                    <h3 class="serif text-gold" style="font-size: 1.5rem;">Mariska Zhang</h3>
+                    <p style="font-size: 0.9rem; margin-top: 10px; color: #aaa;">Putri Bpk. Zhang & Ibu Li</p>
+                    <div style="margin-top: 15px;">
+                        <a href="#" style="color: #fff; margin: 0 5px;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: #fff; margin: 0 5px;"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
             </div>
-            <div class="guestbook-card">
-                <p style="margin-bottom: 20px; color: #aaa;">Tuliskan ucapan selamat & doa restu Anda di sini.</p>
+        </section>
+
+        <!-- DATABASE / UCAPAN -->
+        <section id="wishes" class="container reveal">
+            <h2 class="serif text-gold" style="text-align: center; margin-bottom: 50px;">Kirim Ucapan</h2>
+            <div class="wishes-container">
                 
                 <!-- Form Input -->
-                <div class="input-group">
-                    <input type="text" id="guestName" class="input-royal" placeholder="Nama Anda">
-                </div>
-                <div class="input-group">
-                    <textarea id="guestMsg" class="input-royal" rows="3" placeholder="Ucapan & Doa..."></textarea>
-                </div>
-                <button class="btn-submit" onclick="saveMessage()">
-                    <i class="fas fa-paper-plane"></i> Kirim Ucapan
-                </button>
-                
-                <!-- Tombol Reset (Opsional) -->
-                <div style="text-align: right; margin-top: 10px;">
-                    <span onclick="resetDatabase()" style="font-size: 0.8rem; color: #ef4444; cursor: pointer; text-decoration: underline;">Reset Data</span>
+                <div class="wish-form">
+                    <h3 style="margin-bottom: 20px; color: #fff;">Tulis Pesan</h3>
+                    <input type="text" id="guestName" placeholder="Nama Anda">
+                    <textarea id="guestMsg" rows="4" placeholder="Doa & Ucapan..."></textarea>
+                    <button class="btn" onclick="saveWish()" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-paper-plane"></i> Kirim
+                    </button>
+                    <p style="font-size: 0.8rem; margin-top: 15px; color: #666;">
+                        *Data tersimpan di perangkat ini (LocalStorage).
+                    </p>
                 </div>
 
-                <!-- Tampilan Data yang Disimpan -->
-                <div id="message-list">
-                    <p style="text-align: center; color: #666; padding: 20px;">Belum ada ucapan.</p>
+                <!-- List Wishes -->
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="color: #fff;">Pesan Terbaru</h3>
+                        <span onclick="resetData()" style="font-size: 0.8rem; color: #ef4444; cursor: pointer; text-decoration: underline;">Reset</span>
+                    </div>
+                    <div class="wish-list" id="wishList">
+                        <p style="text-align: center; color: #666; padding: 20px;">Belum ada ucapan.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 5. ACARA -->
-        <section>
-            <div class="section-title">
-                <h2>Rangkaian Acara</h2>
-            </div>
-            <div style="border: 1px solid var(--gold); padding: 30px;">
-                <h3 style="color: var(--gold); font-size: 1.5rem; margin-bottom: 10px;">Akad & Resepsi</h3>
-                <p style="font-size: 1.2rem; font-weight: bold; margin: 10px 0;">20 Desember 2024</p>
-                <p style="color: #ccc;">Vihara Dharma Bhakti & Grand Dragon Restaurant</p>
-            </div>
-        </section>
+        <!-- FOOTER -->
+        <footer style="text-align: center; padding: 50px 20px; margin-top: 50px; border-top: 1px solid #222; color: #666;">
+            <h2 class="serif" style="color: var(--gold); font-size: 2rem;">T & M</h2>
+            <p style="margin-top: 10px;">Created with ❤️ for our Special Day</p>
+        </footer>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer>
-        <h2 style="font-size: 2rem;">Tommy & Mariska</h2>
-        <p style="margin-top: 10px; font-size: 0.9rem;">Terima kasih atas doa restu Anda.</p>
-    </footer>
+    <!-- FALLING PETALS CONTAINER -->
+    <div id="petals-container"></div>
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast">Pesan Terkirim!</div>
-
-    <!-- MUSIC BUTTON -->
-    <div class="music-btn" id="musicBtn" onclick="toggleMusic()">
+    <!-- MUSIC PLAYER -->
+    <div class="music-player" id="musicBtn" onclick="toggleMusic()">
         <i class="fas fa-music"></i>
     </div>
 
+    <!-- TOAST -->
+    <div id="toast">Pesan Terkirim</div>
+
     <script>
         // --- 1. OPENING LOGIC ---
-        const cover = document.getElementById('cover-opening');
-        const mainContent = document.getElementById('main-content');
-        const music = document.getElementById('bg-music');
-        const musicBtn = document.getElementById('musicBtn');
-
         function openInvitation() {
-            // Animasi Cover Geser ke Atas
+            const cover = document.getElementById('cover');
+            const nav = document.getElementById('navbar');
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('musicBtn');
+
             cover.classList.add('open');
+            setTimeout(() => { nav.classList.add('visible'); }, 1000);
             
-            // Munculkan Konten Utama
-            mainContent.classList.add('visible');
-
-            // Izinkan Scroll
-            setTimeout(() => {
-                document.body.style.overflow = "auto";
-            }, 1000);
-
-            // Putar Musik
+            // Play Music
             music.play().then(() => {
                 musicBtn.classList.add('playing');
-            }).catch(e => {
-                console.log("Autoplay diblokir browser.");
-            });
+            }).catch(e => console.log("Autoplay blocked"));
+
+            // Create Petals
+            createPetals();
         }
 
-        // --- 2. DATABASE LOGIC (LOCAL STORAGE) ---
-        const STORAGE_KEY = 'wedding_db_royal';
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const btn = document.getElementById('musicBtn');
+            if (music.paused) {
+                music.play();
+                btn.classList.add('playing');
+            } else {
+                music.pause();
+                btn.classList.remove('playing');
+            }
+        }
 
-        function saveMessage() {
-            const nameInput = document.getElementById('guestName');
-            const msgInput = document.getElementById('guestMsg');
-            const name = nameInput.value.trim();
-            const msg = msgInput.value.trim();
+        // --- 2. SCROLL ANIMATION (INTERSECTION OBSERVER) ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
 
-            if (!name || !msg) {
-                showToast("Mohon isi Nama dan Ucapan Anda!");
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- 3. COUNTDOWN TIMER ---
+        const weddingDate = new Date("Dec 20, 2024 09:00:00").getTime();
+        
+        const timer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<div class='serif text-gold' style='font-size:1.5rem'>Acara Telah Dimulai!</div>";
                 return;
             }
 
-            // Ambil data lama (atau buat array kosong)
-            let messages = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Tambah pesan baru
-            const newMessage = {
-                name: name,
-                msg: msg,
-                date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute:'2-digit' })
+            document.getElementById("countdown").innerHTML = `
+                <div class="time-item"><div class="time-num">${days}</div><div class="time-label">Hari</div></div>
+                <div class="time-item"><div class="time-num">${hours}</div><div class="time-label">Jam</div></div>
+                <div class="time-item"><div class="time-num">${minutes}</div><div class="time-label">Menit</div></div>
+                <div class="time-item"><div class="time-num">${seconds}</div><div class="time-label">Detik</div></div>
+            `;
+        }, 1000);
+
+        // --- 4. ADVANCED DATABASE (With Likes) ---
+        const DB_KEY = 'wedding_cool_db_v2';
+
+        function saveWish() {
+            const name = document.getElementById('guestName').value.trim();
+            const msg = document.getElementById('guestMsg').value.trim();
+
+            if(!name || !msg) { showToast("Nama dan Ucapan wajib diisi!"); return; }
+
+            const newWish = {
+                id: Date.now(),
+                name: escapeHtml(name),
+                msg: escapeHtml(msg),
+                date: new Date().toLocaleDateString('id-ID'),
+                likes: 0,
+                isLiked: false
             };
 
-            messages.unshift(newMessage); // Tambah di paling atas
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+            let data = JSON.parse(localStorage.getItem(DB_KEY)) || [];
+            data.unshift(newWish);
+            localStorage.setItem(DB_KEY, JSON.stringify(data));
 
-            // Reset Form
-            nameInput.value = '';
-            msgInput.value = '';
-
-            // Tampilkan Pesan
-            loadMessages();
-            showToast("Ucapan berhasil dikirim!");
+            document.getElementById('guestName').value = '';
+            document.getElementById('guestMsg').value = '';
+            showToast("✅ Ucapan Terkirim!");
+            renderWishes();
         }
 
-        function loadMessages() {
-            const list = document.getElementById('message-list');
-            const messages = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
+        function renderWishes() {
+            const list = document.getElementById('wishList');
+            const data = JSON.parse(localStorage.getItem(DB_KEY)) || [];
+            
             list.innerHTML = '';
-
-            if (messages.length === 0) {
+            if(data.length === 0) {
                 list.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Belum ada ucapan.</p>';
                 return;
             }
 
-            messages.forEach((item, index) => {
+            data.forEach(item => {
+                const heartClass = item.isLiked ? 'fas fa-heart liked' : 'far fa-heart';
                 const div = document.createElement('div');
-                div.className = 'message-item';
+                div.className = 'wish-card';
                 div.innerHTML = `
-                    <div class="msg-name">${item.name}</div>
-                    <div style="margin-top: 5px; color: #ddd;">${item.msg}</div>
-                    <div style="margin-top: 10px; border-top: 1px solid #333; padding-top: 5px;">
-                        <span class="msg-date">${item.date}</span>
-                        <span class="btn-delete" onclick="deleteMessage(${index})">Hapus</span>
+                    <div class="wish-header">
+                        <span class="wish-name">${item.name}</span>
+                        <span class="wish-date">${item.date}</span>
                     </div>
+                    <div style="color: #ddd; margin-bottom: 10px;">${item.msg}</div>
+                    <div class="like-btn" onclick="toggleLike(${item.id})">
+                        <i class="${heartClass}"></i> ${item.likes}
+                    </div>
+                    <div onclick="deleteWish(${item.id})" style="float:right; font-size:0.7rem; color:#666; cursor:pointer;">Hapus</div>
                 `;
                 list.appendChild(div);
             });
         }
 
-        function deleteMessage(index) {
-            if(confirm("Apakah Anda yakin ingin menghapus pesan ini?")) {
-                let messages = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-                messages.splice(index, 1); // Hapus 1 item
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-                loadMessages();
+        function toggleLike(id) {
+            let data = JSON.parse(localStorage.getItem(DB_KEY)) || [];
+            const index = data.findIndex(item => item.id === id);
+            
+            if (index !== -1) {
+                // Toggle status like
+                if(data[index].isLiked) {
+                    data[index].likes--;
+                    data[index].isLiked = false;
+                } else {
+                    data[index].likes++;
+                    data[index].isLiked = true;
+                }
+                localStorage.setItem(DB_KEY, JSON.stringify(data));
+                renderWishes();
             }
         }
 
-        function resetDatabase() {
-            if(confirm("Hapus semua data tamu?")) {
-                localStorage.removeItem(STORAGE_KEY);
-                loadMessages();
+        function deleteWish(id) {
+            if(!confirm("Hapus pesan ini?")) return;
+            let data = JSON.parse(localStorage.getItem(DB_KEY)) || [];
+            data = data.filter(item => item.id !== id);
+            localStorage.setItem(DB_KEY, JSON.stringify(data));
+            renderWishes();
+        }
+
+        function resetData() {
+            if(confirm("Hapus semua data?")) {
+                localStorage.removeItem(DB_KEY);
+                renderWishes();
             }
         }
 
-        // --- 3. UTILITIES ---
-        function toggleMusic() {
-            if (music.paused) {
-                music.play();
-                musicBtn.classList.add('playing');
-            } else {
-                music.pause();
-                musicBtn.classList.remove('playing');
+        // --- 5. FALLING PETALS GENERATOR ---
+        function createPetals() {
+            const container = document.getElementById('petals-container');
+            const petalCount = 20; // Jumlah daun
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5 + 'px';
+                const left = Math.random() * 100 + 'vw';
+                const duration = Math.random() * 5 + 5 + 's';
+                const delay = Math.random() * 5 + 's';
+
+                petal.style.width = size;
+                petal.style.height = size;
+                petal.style.left = left;
+                petal.style.animationDuration = duration;
+                petal.style.animationDelay = delay;
+
+                container.appendChild(petal);
             }
         }
 
-        function showToast(message) {
-            const toast = document.getElementById("toast");
-            toast.innerText = message;
+        // Utils
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
             toast.className = "show";
-            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+        function escapeHtml(text) {
+            return text.replace(/[&<>"']/g, function(m) { 
+                return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m]; 
+            });
         }
 
-        // --- 4. INIT ---
-        // Kunci scroll saat cover ada
-        document.body.style.overflow = "hidden";
-        // Load pesan saat halaman dibuka
-        loadMessages();
+        // Init
+        renderWishes();
 
     </script>
 </body>
