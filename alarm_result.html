@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#292052">
 <meta name="description" content="OBSIDIAN Aurora Bloom V45 — nada dering marimba bergaya iPhone ketika jam result tiba tetapi nomor belum diterima, lengkap dengan 77 pasaran, SHIO, Prize, dan sinkronisasi Google Sheet.">
-<title>OBSIDIAN AURORA BLOOM V47 — Singapore Anti-Spam + Status Live</title>
+<title>OBSIDIAN V49 — Clean Dashboard + Anti-Spam Libur</title>
 <style>
 :root{color-scheme:light;--ink:#1b1739;--indigo:#251658;--violet:#6446e9;--pink:#ff558f;--orange:#ff9b51;--yellow:#ffd66e;--mint:#57dfc6;--cream:#fcf8ef;--white:#fffefa;--muted:#817b8d;--stroke:#e8e3ec;--shadow:0 15px 42px rgba(46,31,92,.09)}
 *{box-sizing:border-box}
@@ -1113,6 +1113,145 @@ body{background:linear-gradient(180deg,#f8f7fd 0%,#f5f4fb 49%,#faf8fc 100%)!impo
 @media (prefers-reduced-motion:reduce){
  .disc,.planet,.hero-star,.live-dot{animation:none!important}
 }
+/* V48: warna khusus libur/non-result dari tanda '-' di Sheet */
+.market.noresult{background:linear-gradient(145deg,#232a38,#182232)!important;border-color:#7e8ca4!important;opacity:.82}
+.market.noresult:before{background:#9eabc2!important}
+.smallstate.noresult{background:#394a5f!important;color:#f0f4ff!important}
+.market.noresult .marketleft{color:#c5d2e3!important}
+
+/* ==========================================================
+   OBSIDIAN V49 — CLEAN GRID / RAPIH & RESPONSIVE
+   Layout-only finishing layer. No data/notification modifications.
+   ========================================================== */
+:root { --ui-gap: 14px; --ui-radius: 15px; }
+*, *::before, *::after { box-sizing: border-box; }
+.shell { max-width: 1680px!important; margin-inline: auto!important; width: 100%!important; }
+.main { min-width:0!important; }
+.main > * { min-width:0; }
+.sidebar { min-width:0; }
+.topbar { flex-wrap:wrap!important; align-items:center!important; }
+.topright { max-width:100%; }
+.topright > * { max-width:100%; }
+.hero {
+  min-height: 245px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1.4fr) minmax(260px,.75fr)!important;
+  align-items:center!important;
+  gap:20px!important;
+  padding:25px clamp(21px,2.4vw,35px)!important;
+  border-radius:20px!important;
+}
+.hero h1 { font-size:clamp(36px,3.6vw,53px)!important; margin:10px 0!important; line-height:1.03!important; }
+.hero p { margin:9px 0 13px!important; font-size:12px!important; }
+.hero-bottomtag { margin-top:12px!important; }
+.hero .disc,.hero .disc-inner,.hero .disc-core,.hero .planet,.hero .planet-star,.hero .orbit-label,.hero .hero-star,.hero .hero-ribbon,.hero .hero-orbit { display:none!important; }
+.hero .disc-wrap { min-height:0!important; position:relative!important; display:flex!important; align-items:center!important; justify-content:stretch!important; }
+.hero .countcard {
+  width:100%!important; max-width:none!important; margin:0!important;
+  transform:none!important; border-radius:16px!important; padding:19px!important;
+  box-shadow:0 12px 30px rgba(7,9,30,.2)!important;
+}
+.hero .countval { font-size:clamp(29px,3vw,40px)!important; letter-spacing:-.045em!important; }
+.tickerstrip { display:none!important; }
+.metrics { display:grid!important; grid-template-columns:repeat(4,minmax(0,1fr))!important; gap:var(--ui-gap)!important; margin:17px 0 21px!important; }
+.metric,.metric:nth-child(even) {
+  min-width:0!important; transform:none!important; padding:16px!important;
+  min-height:92px!important; border-radius:var(--ui-radius)!important;
+}
+.metric b { font-size:29px!important; }
+.metric small { line-height:1.35!important; }
+.metric-icon { flex-shrink:0; }
+.dashboard { display:grid!important; grid-template-columns:minmax(0,1fr) 320px!important; align-items:start!important; gap:18px!important; }
+.dashboard > section, .dashboard > aside { min-width:0!important; }
+.sectionpanel { min-width:0!important; border-radius:var(--ui-radius)!important; padding:17px!important; }
+.heading { flex-wrap:wrap!important; gap:8px!important; }
+.heading h2 { font-size:21px!important; }
+.searchrow { display:grid!important; grid-template-columns:minmax(0,1fr) minmax(130px,auto)!important; gap:9px!important; }
+.searchrow input,.searchrow select { min-width:0!important; width:100%!important; }
+.chipbar { display:flex!important; flex-wrap:wrap!important; gap:7px!important; overflow:visible!important; }
+.chip { padding:8px 10px!important; font-size:10px!important; }
+.marketgrid { display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:12px!important; align-items:stretch!important; }
+.market,.market:nth-child(4n+2),.market:nth-child(4n+3),.market:nth-child(4n+4) {
+  min-width:0!important; height:100%!important; border-radius:var(--ui-radius)!important;
+  padding:14px!important; transform:none!important; background:#fff!important;
+}
+.market:hover { transform:none!important; box-shadow:0 5px 16px rgba(40,30,70,.09)!important; }
+.marketline { display:flex!important; flex-wrap:wrap!important; align-items:flex-start!important; gap:8px!important; }
+.marketline > div:first-child { min-width:0!important; flex:1 1 130px!important; }
+.marketname { font-size:13px!important; line-height:1.4!important; overflow-wrap:anywhere!important; }
+.smallstate { max-width:100%; white-space:normal!important; text-align:center; overflow-wrap:anywhere!important; font-size:9px!important; }
+.marketclock { grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:8px!important; }
+.timemini { min-width:0!important; padding:9px!important; }
+.timemini b { font-size:16px!important; }
+.marketfoot { flex-wrap:wrap!important; align-items:center!important; }
+.marketactions { flex-wrap:wrap!important; }
+.sidebox { min-width:0!important; display:grid!important; grid-template-columns:minmax(0,1fr)!important; gap:13px!important; position:static!important; }
+.side-card,.side-card:nth-child(2),.side-card:nth-child(3),.bg-watch {
+  min-width:0!important; border-radius:var(--ui-radius)!important; padding:16px!important;
+}
+.sidebox .side-collapse-head,.sidebox .melody-studio-head,.sidebox .late-top,.sidebox .bg-watch-head { min-width:0; flex-wrap:wrap; gap:7px; }
+.sidebox select,.sidebox input,.sidebox button { max-width:100%; }
+.sidebox .late-grid,.sidebox .spam-controls-grid,.sidebox .formgrid { min-width:0; }
+.sidebox .late-grid > *, .sidebox .spam-controls-grid > * { min-width:0; }
+.sidebox .siderow2, .sidebox .late-actions { flex-wrap:wrap!important; }
+.sidebox .siderow2 > button,.sidebox .late-actions > button { flex:1 1 110px; }
+.below { display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:18px!important; }
+.below > * { min-width:0!important; }
+/* Keep non-result cards readable: muted, clearly labeled, never orange/red warning */
+.market.noresult,.market.noresult:nth-child(n) { background:#f1f4f9!important; border-color:#b8c4d6!important; opacity:1!important; }
+.market.noresult .marketname,.market.noresult .timemini b { color:#27364c!important; }
+.market.noresult .marketgroup,.market.noresult .marketleft { color:#53647b!important; }
+.market.noresult .smallstate.noresult { background:#dce5f2!important; color:#344865!important; }
+.market.noresult .timemini { background:#fff!important; }
+@media(min-width:1600px) {
+ .dashboard { grid-template-columns:minmax(0,1fr) 340px!important; }
+ .marketgrid { grid-template-columns:repeat(3,minmax(0,1fr))!important; }
+}
+@media(max-width:1150px) {
+ .dashboard { grid-template-columns:minmax(0,1fr) 285px!important; }
+ .hero { grid-template-columns:minmax(0,1fr) minmax(240px,.8fr)!important; }
+}
+@media(max-width:930px) {
+ .shell,.shell.nav-collapsed { grid-template-columns:minmax(0,1fr)!important; }
+ .dashboard { grid-template-columns:minmax(0,1fr)!important; }
+ .hero { grid-template-columns:minmax(0,1fr) minmax(240px,.8fr)!important; }
+ .sidebox { grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+ .sidebox > * { grid-column:auto!important; }
+ .sidebox > .alarmhero,.sidebox > .late-card { grid-column:span 2!important; }
+}
+@media(max-width:690px) {
+ .main { padding:14px 12px 36px!important; }
+ .hero { grid-template-columns:minmax(0,1fr)!important; gap:13px!important; padding:22px 18px!important; border-radius:17px!important; }
+ .hero h1 { font-size:clamp(31px,7.5vw,44px)!important; }
+ .hero .countcard { max-width:none!important; transform:none!important; }
+ .metrics { grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:9px!important; }
+ .metric { padding:12px!important; min-height:80px!important; }
+ .metric b { font-size:26px!important; }
+ .marketgrid { grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:10px!important; }
+ .below { grid-template-columns:minmax(0,1fr)!important; }
+ .sidebox { grid-template-columns:minmax(0,1fr)!important; }
+ .sidebox > *,.sidebox > .alarmhero,.sidebox > .late-card { grid-column:auto!important; }
+}
+@media(max-width:560px) {
+ .topbar { align-items:flex-start!important; }
+ .topright { width:100%; justify-content:flex-start!important; }
+ .marketgrid { grid-template-columns:minmax(0,1fr)!important; }
+ .market { height:auto!important; }
+ .searchrow { grid-template-columns:minmax(0,1fr)!important; }
+ .sectionpanel { padding:12px!important; }
+ .heading h2 { font-size:19px!important; }
+ .marketname { font-size:14px!important; }
+ .hero-pills { gap:5px!important; }
+ .pill { font-size:8px!important; padding:7px 8px!important; }
+ .notification-hub { display:flex; flex-wrap:wrap!important; gap:10px!important; }
+ .notification-hub-actions { display:flex; flex-wrap:wrap; gap:7px; width:100%; }
+}
+@media(max-width:360px) {
+ .metrics { grid-template-columns:minmax(0,1fr)!important; }
+ .marketclock { gap:5px!important; }
+ .timemini b { font-size:15px!important; }
+}
+
 </style>
 <!-- V43: defer manifest request until after the HTML is painted; local files do not need manifest. -->
 <script>
@@ -1351,6 +1490,8 @@ function load(){
  }catch{return {...initial,iosRingtoneDefaultV30:true,indonesiaRayaDefaultV29:true,missingResultSpamV27:true,crystalBellDefaultV12:true,crystalClarityV13:true,autoSheetBridgeConfiguredV13:true,autoSheetBridgeConfiguredV13NewExec:true}}
 }
 const prefs=load();
+// V48: status libur/tidak result berasal dari tanda minus pada sumber Sheet.
+prefs.noResultDays = prefs.noResultDays && typeof prefs.noResultDays === "object" ? prefs.noResultDays : {};
 function persist(){try{localStorage.setItem(STORE,JSON.stringify(prefs))}catch(e){}}
 const wibFmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jakarta',hour12:false,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'});
 const padded=n=>String(n).padStart(2,'0');
@@ -1391,12 +1532,13 @@ let activeResultDate=String(prefs.resultDay||wibNow().date);
 let midnightResetTimer=null;
 function resetDailyResults(now=wibNow(),silent=false){
  const switchedDay=activeResultDate!==now.date;
- const hasOldResults=prefs.results.some(r=>r.date!==now.date);
+ const hasOldResults=prefs.results.some(r=>r.date!==now.date) || Object.keys(prefs.noResultDays||{}).some(k=>!k.startsWith(now.date+"|"));
  if(!switchedDay&&!hasOldResults)return false;
  activeResultDate=now.date;
  prefs.resultDay=now.date;
  // Simpan hanya hasil dengan tanggal WIB hari ini (kalau ada yang masuk tepat pada 00:00).
  prefs.results=prefs.results.filter(r=>r.date===now.date);
+ prefs.noResultDays=Object.fromEntries(Object.entries(prefs.noResultDays||{}).filter(([key])=>key.startsWith(now.date+"|")));
  rebuildResultIndex();
  prefs.seen=prefs.seen.filter(k=>typeof k==='string'&&k.startsWith(now.date+'|'));
  prefs.lateLast=Object.fromEntries(Object.entries(prefs.lateLast||{}).filter(([k])=>k.startsWith(now.date+'|')));
@@ -1438,19 +1580,41 @@ window.addEventListener('storage', event=>{
  const today=wibNow().date;
  const incoming=shared.results.filter(r=>r&&r.date===today&&typeof r.pasaran==='string'&&!!resolveMarket(r.pasaran)).slice(0,500);
  // Hindari render sia-sia ketika tab lain hanya mengubah volume atau posisi panel.
- if(JSON.stringify(incoming)===JSON.stringify(prefs.results))return;
+ const incomingOff=shared.noResultDays&&typeof shared.noResultDays==='object'?Object.fromEntries(Object.entries(shared.noResultDays).filter(([key])=>key.startsWith(today+'|'))):{};
+ if(JSON.stringify(incoming)===JSON.stringify(prefs.results)&&JSON.stringify(incomingOff)===JSON.stringify(prefs.noResultDays))return;
+ prefs.noResultDays=incomingOff;
  prefs.results=incoming;
  rebuildResultIndex();
  pruneLateSpamJobs();
  renderHistory();renderMarkets();updateStats(wibNow());renderLatePanel();refreshNotificationHub();
 });
 const resultFor=(name,date)=>resultIndex.get(date+'|'+name);
+function noResultFor(name,date){return !!prefs.noResultDays?.[date+'|'+name]}
+function isNoResultMarker(value){return typeof value==='string' && /^[\s\u2010-\u2015\u2212-]+$/.test(value) && value.trim().length>0}
+function isNoResultStatus(value){return /^(LIBUR|TIDAK[ _-]*RESULT|NO[ _-]*RESULT|OFF|CANCELLED|CANCELED|HOLIDAY)$/i.test(String(value??'').trim())}
+function sourceSaysNoResult(item){
+ // Kolom angka '-' lebih kuat daripada status DONE; status LIBUR juga didukung.
+ const fields=[item.prize1,item.prize2,item.prize3,item.nomor,item.number,item.result];
+ return fields.some(isNoResultMarker)||isNoResultStatus(item.status);
+}
+function markNoResult(name,date){
+ const m=resolveMarket(name);if(!m||date!==wibNow().date)return false;
+ const key=date+'|'+m.name;
+ if(prefs.noResultDays[key])return false;
+ prefs.noResultDays[key]=true;
+ const i=prefs.results.findIndex(r=>r.date===date&&r.pasaran===m.name);
+ if(i>=0){prefs.results.splice(i,1);resultIndex.delete(key)}
+ return true;
+}
+function clearNoResult(name,date){const key=date+'|'+name;if(!prefs.noResultDays[key])return false;delete prefs.noResultDays[key];return true}
+
 // V46 • SINGAPORE SMART ANTI-SPAM
 // 4D dan TOTO tetap dua hasil independen. Hanya pemeriksaan alarm
 // yang dianggap terpenuhi bila salah satu sudah mengirim angka hari ini.
 const SINGAPORE_ALARM_NAMES=['SINGAPORE 4D','SINGAPORE TOTO'];
 const isSingaporeMarket=name=>norm(name)==='SINGAPORE4D'||norm(name)==='SINGAPORETOTO';
 function resultSatisfiedForAlarm(name,date){
+ if(noResultFor(name,date))return true;
  if(!isSingaporeMarket(name))return !!resultFor(name,date);
  return SINGAPORE_ALARM_NAMES.some(partner=>!!resultFor(partner,date));
 }
@@ -1463,7 +1627,7 @@ function singaporeResultAlreadyNotifiedToday(date){
 }
 
 const until=(target,now)=> (toSec(target)-now.sec+86400)%86400;
-function statusFor(m,now){const r=resultFor(m.name,now.date);if(r)return 'saved';const t=toSec(m.result),c=toSec(m.close);const crosses=c>t; if(!crosses){if(now.sec<c)return 'upcoming';if(now.sec>=t)return 'due';if(now.sec>=c)return 'waiting';return 'upcoming'} // HOKIDRAW 00:00 case: close previous day
+function statusFor(m,now){if(noResultFor(m.name,now.date))return 'noresult';const r=resultFor(m.name,now.date);if(r)return 'saved';const t=toSec(m.result),c=toSec(m.close);const crosses=c>t; if(!crosses){if(now.sec<c)return 'upcoming';if(now.sec>=t)return 'due';if(now.sec>=c)return 'waiting';return 'upcoming'} // HOKIDRAW 00:00 case: close previous day
 if(now.sec<t)return 'waiting';return 'due'}
 let filter='all',search='',group='all',lastScheduler=null,lastDrawSecond=-1,ctx=null,soundNodes=[],feedTimer=null,feedBusy=false,popupTimer=null;
 const sortedByResult=[...MARKETS].sort((a,b)=>toSec(a.result)-toSec(b.result)||a.name.localeCompare(b.name));
@@ -1598,15 +1762,16 @@ function renderMarkets(now=wibNow()){
  for(const m of pending){const card=el('article','market '+(m.group==='HOKIDRAW'?'hoki ':'')+m.state);
   card.dataset.marketName=m.name;
   const top=el('div','marketline'),nam=el('div'),title=el('div','marketname',m.name),gr=el('div','marketgroup',m.group);nam.append(title,gr);
-  const singaporePartnerDone=isSingaporeMarket(m.name)&&!m.saved&&resultSatisfiedForAlarm(m.name,now.date);
+  const offDay=m.state==='noresult';
+  const singaporePartnerDone=!offDay&&isSingaporeMarket(m.name)&&!m.saved&&resultSatisfiedForAlarm(m.name,now.date);
   const late=!singaporePartnerDone&&m.state==='due'&&now.sec-toSec(m.result)>=Number(prefs.lateGrace)*60&&now.sec-toSec(m.result)<=3600;
   if(late)card.classList.add('late-missing');
-  const st=el('span','smallstate '+m.state,m.state==='saved'?'◆ ADA HASIL':m.state==='waiting'?'⏳ MENUNGGU':singaporePartnerDone?'✓ SINGAPORE TERPANTAU':m.state==='due'?'🔔 BELUM ADA NOMOR':'◷ BELUM TUTUP');top.append(nam,st);
+  const st=el('span','smallstate '+m.state,offDay?'— LIBUR / TIDAK RESULT':m.state==='saved'?'◆ ADA HASIL':m.state==='waiting'?'⏳ MENUNGGU':singaporePartnerDone?'✓ SINGAPORE TERPANTAU':m.state==='due'?'🔔 BELUM ADA NOMOR':'◷ BELUM TUTUP');top.append(nam,st);
   const clocks=el('div','marketclock'),close=el('div','timemini'),res=el('div','timemini result');close.append(el('small','','JAM TUTUP'),el('b','',simpleTime(m.close)));res.append(el('small','','JAM RESULT'),el('b','',simpleTime(m.result)));clocks.append(close,res);
   const foot=el('div','marketfoot'),hint=el('div','marketleft');
   // V42: Reuse DOM and market references on each lightweight countdown update.
   card._marketRef=marketMap.get(norm(m.name));card._hintNode=hint;
-  if(m.saved){hint.append(el('span','numshown',m.saved.prize1))}else if(singaporePartnerDone){hint.textContent='Alarm grup selesai · hasil pasangan masuk'}else if(m.delta===0){hint.textContent='Jadwal result sekarang'}else if(m.state==='due'&&now.sec>=toSec(m.result)){hint.textContent='Lewat '+Math.floor((now.sec-toSec(m.result))/60)+' menit · nomor belum masuk'}else{hint.textContent='Result dalam '+humanDuration(m.delta)};
+  if(offDay){hint.textContent='— Di Google Sheet tercatat tidak result · alarm nonaktif'}else if(m.saved){hint.append(el('span','numshown',m.saved.prize1))}else if(singaporePartnerDone){hint.textContent='Alarm grup selesai · hasil pasangan masuk'}else if(m.delta===0){hint.textContent='Jadwal result sekarang'}else if(m.state==='due'&&now.sec>=toSec(m.result)){hint.textContent='Lewat '+Math.floor((now.sec-toSec(m.result))/60)+' menit · nomor belum masuk'}else{hint.textContent='Result dalam '+humanDuration(m.delta)};
   const buttons=el('div','marketactions'),bell=el('button','roundbtn'+(isMuted(m.name)?' muted':''),isMuted(m.name)?'🔕':'🔔'),input=el('button','roundbtn','＋ Input');bell.title=isMuted(m.name)?'Aktifkan alarm pasaran':'Bisukan pasaran';bell.setAttribute('aria-label',bell.title);
   bell.addEventListener('click',()=>{prefs.muted=isMuted(m.name)?prefs.muted.filter(x=>x!==m.name):[...prefs.muted,m.name];persist();renderMarkets();toast('Pengaturan pasaran',`${m.name}: ${isMuted(m.name)?'alarm dibisukan':'alarm aktif'}`)});
   input.addEventListener('click',()=>{$('resultMarket').value=m.name;document.querySelector('.manual-card').scrollIntoView({behavior:'smooth',block:'center'});$('p1').focus()});buttons.append(bell,input);foot.append(hint,buttons);card.append(top,clocks,foot);f.append(card)
@@ -1624,7 +1789,8 @@ function refreshMarketCountdowns(now=wibNow()){
   const state=statusFor(m,now), delta=until(m.result,now);
   const hint=card._hintNode||card.querySelector('.marketleft');if(!hint)continue;
   let message;
-  if(isSingaporeMarket(name)&&!resultFor(name,now.date)&&resultSatisfiedForAlarm(name,now.date))message='Alarm grup selesai · hasil pasangan masuk';
+  if(state==='noresult')message='— Di Google Sheet tercatat tidak result · alarm nonaktif';
+  else if(isSingaporeMarket(name)&&!resultFor(name,now.date)&&resultSatisfiedForAlarm(name,now.date))message='Alarm grup selesai · hasil pasangan masuk';
   else if(delta===0)message='Jadwal result sekarang';
   else if(state==='due'&&now.sec>=toSec(m.result))message='Lewat '+Math.floor((now.sec-toSec(m.result))/60)+' menit · nomor belum masuk';
   else message='Result dalam '+humanDuration(delta);
@@ -2072,7 +2238,7 @@ function popupResult(item){$('popupMarket').textContent=item.pasaran;const oneRe
  if(oneResult)numberDisplay.append(el('span','popup-result-label','Result :'),el('span','popup-result-number',item.prize1));
  else numberDisplay.textContent=item.prize1;const shioName=shioFromPrize1(item.prize1);const shioEl=$('popupShio');shioEl.hidden=!shioName;shioEl.replaceChildren();if(shioName)shioEl.append(el('span','',availablePrizes(item).length===1?'✧ SHIO':'✧ SHIO PRIZE 1'),document.createTextNode(shioName));$('popupMore').textContent=popupSafeText([item.date,...availablePrizes(item).filter(x=>x.index!==1).map(x=>`PRIZE ${x.index}: ${x.value}`)].join('  • '));$('resultModal').hidden=false;clearTimeout(popupTimer);popupTimer=setTimeout(()=>{$('resultModal').hidden=true},11000)}
 function cleanDigits(x){const s=String(x??'').trim();return /^\d{1,6}$/.test(s)?s:null}
-function saveResult(x,{notifyUser=true,deferRender=false}={}){resetDailyResults(wibNow());const m=resolveMarket(x.pasaran||x.market||'');if(!m)return false;const n1=cleanDigits(x.prize1),n2=(x.prize2===undefined||x.prize2===null||x.prize2==='')?'':cleanDigits(x.prize2),n3=(x.prize3===undefined||x.prize3===null||x.prize3==='')?'':cleanDigits(x.prize3);if(!n1||n2===null||n3===null)return false;const date=String(x.date||x.tanggal||wibNow().date).slice(0,10);if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||date!==wibNow().date)return false;const index=prefs.results.findIndex(r=>r.pasaran===m.name&&r.date===date);if(index!==-1){const old=prefs.results[index];if(old.prize1===n1&&old.prize2===n2&&old.prize3===n3)return false;prefs.results.splice(index,1)}const result={pasaran:m.name,date,prize1:n1,prize2:n2,prize3:n3,source:x.source||'Manual'};prefs.results.unshift(result);prefs.results=prefs.results.slice(0,500);resultIndex.set(date+'|'+m.name,result);pruneLateSpamJobs();refreshNotificationHub();if(!deferRender){persist();renderHistory();renderMarkets();updateStats(wibNow());renderLatePanel()}if(notifyUser&&date===wibNow().date){if(!isMuted(m.name)){const silentSingaporeFollowup=isSingaporeMarket(m.name)&&singaporeResultAlreadyNotifiedToday(date);if(!silentSingaporeFollowup)notify('✦ RESULT BARU — '+m.name,(!n2&&!n3?'Result : '+n1:'PRIZE 1: '+n1+(n2?' | PRIZE 2: '+n2:'')+(n3?' | PRIZE 3: '+n3:''))+' | SHIO: '+shioFromPrize1(n1),'result',true,!isSingaporeMarket(m.name));popupResult(result)}else recordEvent('Result disimpan (dibisukan)',`${m.name}: ${n1}`,'result')}return true}
+function saveResult(x,{notifyUser=true,deferRender=false}={}){resetDailyResults(wibNow());const m=resolveMarket(x.pasaran||x.market||'');if(!m)return false;const n1=cleanDigits(x.prize1),n2=(x.prize2===undefined||x.prize2===null||x.prize2==='')?'':cleanDigits(x.prize2),n3=(x.prize3===undefined||x.prize3===null||x.prize3==='')?'':cleanDigits(x.prize3);if(!n1||n2===null||n3===null)return false;const date=String(x.date||x.tanggal||wibNow().date).slice(0,10);if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||date!==wibNow().date)return false;clearNoResult(m.name,date);const index=prefs.results.findIndex(r=>r.pasaran===m.name&&r.date===date);if(index!==-1){const old=prefs.results[index];if(old.prize1===n1&&old.prize2===n2&&old.prize3===n3)return false;prefs.results.splice(index,1)}const result={pasaran:m.name,date,prize1:n1,prize2:n2,prize3:n3,source:x.source||'Manual'};prefs.results.unshift(result);prefs.results=prefs.results.slice(0,500);resultIndex.set(date+'|'+m.name,result);pruneLateSpamJobs();refreshNotificationHub();if(!deferRender){persist();renderHistory();renderMarkets();updateStats(wibNow());renderLatePanel()}if(notifyUser&&date===wibNow().date){if(!isMuted(m.name)){const silentSingaporeFollowup=isSingaporeMarket(m.name)&&singaporeResultAlreadyNotifiedToday(date);if(!silentSingaporeFollowup)notify('✦ RESULT BARU — '+m.name,(!n2&&!n3?'Result : '+n1:'PRIZE 1: '+n1+(n2?' | PRIZE 2: '+n2:'')+(n3?' | PRIZE 3: '+n3:''))+' | SHIO: '+shioFromPrize1(n1),'result',true,!isSingaporeMarket(m.name));popupResult(result)}else recordEvent('Result disimpan (dibisukan)',`${m.name}: ${n1}`,'result')}return true}
 function parseFeed(json){
  const arr=Array.isArray(json)?json:Array.isArray(json?.results)?json.results:
     Array.isArray(json?.data)?json.data:Array.isArray(json?.items)?json.items:
@@ -2114,10 +2280,10 @@ function feedPreview(data,skipped,payload){
  for(const item of data.slice(0,8)){
   const line=document.createElement('div');line.className='feed-v14-row';
   const left=document.createElement('b');left.textContent=item.pasaran||'Tanpa nama';
-  const right=document.createElement('span');const prizes=availablePrizes(item);right.textContent=(prizes.length===1?'Result : '+prizes[0].value:prizes.map(x=>`P${x.index}: ${x.value}`).join('  ·  '))+'  ·  '+item.date;
+  const right=document.createElement('span');const prizes=availablePrizes(item);right.textContent=(sourceSaysNoResult(item)?'— LIBUR / TIDAK RESULT':(prizes.length===1?'Result : '+prizes[0].value:prizes.map(x=>`P${x.index}: ${x.value}`).join('  ·  ')))+'  ·  '+item.date;
   line.append(left,right);box.append(line);
  }
- if(!data.length){const t=document.createElement('div');t.className='feed-v14-empty';t.textContent='Endpoint terhubung, tetapi tidak mengirim angka hasil DONE. Pastikan kolom K= DONE dan kolom G berisi angka.';box.append(t)}
+ if(!data.length){const t=document.createElement('div');t.className='feed-v14-empty';t.textContent='Endpoint terhubung tetapi belum mengirim hasil. Untuk mendeteksi LIBUR, Apps Script harus mengirim juga baris yang kolom nomor result-nya berisi '-'.';box.append(t)}
  if(skipped){const t=document.createElement('div');t.className='feed-v14-empty';t.textContent=skipped+' entri ditolak (nama tidak ada di 77 pasaran, tanggal, atau format angka tidak cocok).';box.append(t)}
 }
 function setFeedMsg(message,bad=false){const node=$('feedState');node.textContent=message;node.classList.toggle('feed-v14-error',bad)}
@@ -2141,24 +2307,29 @@ async function pollFeed(manual=false){
   if(!Array.isArray(payload)&&!Array.isArray(payload?.results)&&!Array.isArray(payload?.data)&&!Array.isArray(payload?.items))throw new Error('FORMAT SALAH: Endpoint tidak mengembalikan array results. Pasang Code.gs V14.');
   const data=parseFeed(payload),sheetDate=String(payload?.date||'');
   const today=wibNow().date;
-  let added=0,skipped=0; const quiet=firstGoogleSync && isGoogleBridge(prefs.feedUrl);
+  let added=0,skipped=0,holidays=0,changed=false; const quiet=firstGoogleSync && isGoogleBridge(prefs.feedUrl);
   for(const item of data){
-   const goodName=!!resolveMarket(item.pasaran||'');
+   const market=resolveMarket(item.pasaran||'');
+   const validDate=/^\d{4}-\d{2}-\d{2}$/.test(String(item.date||''));
+   if(!market||!validDate||item.date!==today){skipped++;continue}
+   // Jika kolom nomor berisi '-' atau status LIBUR, simpan tanpa membuat hasil angka.
+   if(sourceSaysNoResult(item)){
+    if(markNoResult(market.name,today))changed=true;
+    holidays++;
+    continue;
+   }
    const goodPrize=cleanDigits(item.prize1);
-   const goodDate=/^\d{4}-\d{2}-\d{2}$/.test(String(item.date||''));
-   if(!goodName||!goodPrize||!goodDate){skipped++;continue}
-   // Bila respons menyertakan status, hanya DONE yang boleh muncul sebagai hasil.
-   if(item.status!==null&&String(item.status).trim().toUpperCase()!=='DONE'){skipped++;continue}
-   if(item.date!==today){skipped++;continue} // Result tanggal kemarin tidak boleh kembali setelah reset.
-   if(saveResult(item,{notifyUser:!quiet && added===0,deferRender:true}))added++;
+   if(!goodPrize){skipped++;continue} // Kolom kosong = belum result, BUKAN libur.
+   if(item.status!==null&&!['DONE','SELESAI','SUCCESS','SUKSES'].includes(String(item.status).trim().toUpperCase())){skipped++;continue}
+   if(saveResult(item,{notifyUser:!quiet && added===0,deferRender:true})){added++;changed=true}
   }
-  if(added){
+  if(changed){
    persist();pruneLateSpamJobs();renderHistory();renderMarkets();updateStats(wibNow());renderLatePanel();
   }
   feedPreview(data.filter(item=>String(item.date||'').slice(0,10)===today),skipped,payload);
   if(isGoogleBridge(prefs.feedUrl))firstGoogleSync=false;
   const source=isGoogleBridge(prefs.feedUrl)?'RESULT OTOMATIS':'JSON';
-  const detail=''+(payload?.done??data.length)+' DONE · '+data.length+' dikirim · '+added+' disimpan baru · '+skipped+' ditolak';
+  const detail=''+(payload?.done??data.length)+' DONE · '+holidays+' LIBUR · '+data.length+' dikirim · '+added+' hasil baru · '+skipped+' dilewati';
   lastBridgeDebug=source+' | '+detail+' | tanggal '+(sheetDate||'?')+' | v'+(payload?.version||'?');
   setFeedMsg('✓ SINKRON · '+detail+' · terakhir '+wibNow().clock+' WIB');
   // Tidak tampilkan toast sinkronisasi yang berhasil; status tetap ada di panel sumber result.
